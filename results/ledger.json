@@ -1,0 +1,172 @@
+{
+ "version": "calibrated-animal-claims-ledger-1",
+ "date": "2026-11-22",
+ "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
+ "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Every number is copied from the named file in the named repository; nothing here is re-computed.",
+ "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, rhythm mixtures). The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
+ "claims": [
+  {
+   "id": "chimp-drum",
+   "claim": "Eastern and Western chimpanzees drum with different rhythms; Eastern drumming alternates short and long gaps",
+   "paper": "Eleuteri et al. 2025, Current Biology",
+   "repo": "https://github.com/munimtechnologies/chimp-drum-test",
+   "procedures": [
+    {"id": "drum-welch", "procedure": "Welch t-test of East against West lag-one autocorrelation with bouts as units (published test, reproduced: t -5.732, df 337.27)",
+     "world": "C0: no subspecies difference beyond each bout's own gaps in random order",
+     "worlds": 200, "hits": 192, "rate": 0.96,
+     "source_file": "results/drum/drum_results.json", "source_key": "calibration.C0.naive_reject"}
+   ],
+   "calibrated": "Within-bout permutation: Eastern alternation beyond each bout's own arrangement, p_low 0.0001 (size 0.025). Subspecies difference with communities as units: p_two 0.103 over 11 communities, power 0.275 at the registered effect size.",
+   "calibrated_source": "RESULTS-DRUM.md",
+   "verdict": "SURVIVES_IN_PART",
+   "verdict_note": "Alternation in Eastern bouts is real; the subspecies difference is not established once communities are the units (underpowered)."
+  },
+  {
+   "id": "orangutan-rhythm",
+   "claim": "Orangutan long calls have nested isochronous rhythm at two levels",
+   "paper": "Lameira et al. 2024, eLife",
+   "repo": "https://github.com/munimtechnologies/orangutan-rhythm-test",
+   "procedures": [
+    {"id": "orangutan-uniform", "procedure": "Paper-style declaration of nested isochrony: on-band excess of rhythm ratios over a uniform null at p < 0.001, for full pulses and at least one sub-pulse type",
+     "world": "Null A: inter-onset intervals shuffled within each train (no sequential structure)",
+     "worlds": 1999, "hits": 1999, "rate": 1.0,
+     "source_file": "results/rhythm_results.json", "source_key": "declaration_rate_nullA"}
+   ],
+   "calibrated": "Renewal null (within-train shuffle): full pulses on-band share 0.9482 against 0.7871, p 0.0005; local-shuffle null B p 0.0010. Headline BEYOND_RENEWAL_BOTH_LEVELS.",
+   "calibrated_source": "results/RESULTS-RHYTHM.md",
+   "verdict": "SURVIVES",
+   "verdict_note": "Rhythm is real beyond shuffled calls, though about 57% of the full-pulse excess over uniform is reached by shuffled calls alone."
+  },
+  {
+   "id": "whale-vowel-duration",
+   "claim": "Sperm whale coda 'vowels' differ in length (a-codas longer than i-codas)",
+   "paper": "Begus et al. 2025-2026 (sperm whale coda vowels)",
+   "repo": "https://github.com/munimtechnologies/whale-vowel-test",
+   "procedures": [
+    {"id": "vowel-length", "procedure": "Published-style a minus i duration contrast within whale, codas as units",
+     "world": "Bout-clustered worlds: one vowel per bout, 5% flipped, real durations (no vowel effect within bouts)",
+     "worlds": 200, "hits": 71, "rate": 0.355,
+     "source_file": "RESULTS-DUR.md", "source_key": "Calibration: published-style test says 'a longer' in 0.355"}
+   ],
+   "calibrated": "Within-bout contrast D = +0.1136 s over 20 bouts, rotation p_high 0.0001, but the rotation test itself fired in 0.190 of effect-free worlds (limit 0.10).",
+   "calibrated_source": "RESULTS-DUR.md",
+   "verdict": "UNDECIDED",
+   "verdict_note": "Registered verdict CALIBRATION_FAILED_WITHIN_BOUTS: the within-bout difference is large but no calibrated test of it exists yet."
+  },
+  {
+   "id": "whale-coarticulation",
+   "claim": "Sperm whale coda vowels show coarticulation: the first click of a coda changes when the vowel changes",
+   "paper": "Begus et al. 2025-2026 (sperm whale coda vowels)",
+   "repo": "https://github.com/munimtechnologies/whale-vowel-test",
+   "procedures": [
+    {"id": "coart-first-click", "procedure": "Published-style first-click mismatch test, change against no-change pairs",
+     "world": "W0: no coarticulation (change labels unrelated to click mismatch)",
+     "worlds": 200, "hits": 152, "rate": 0.76,
+     "source_file": "results/coart/vowel3_results.json", "source_key": "W0.first_reject"}
+   ],
+   "calibrated": "Permutation within tag deployments: first-click excess 0.1578 (p_high 0.0035) but the last click of the previous coda mismatches too (0.1040, p_high 0.0433); the registered asymmetry test fired in 0.205 of W0 worlds.",
+   "calibrated_source": "RESULTS-COART.md",
+   "verdict": "UNDECIDED",
+   "verdict_note": "Registered verdict CALIBRATION_FAILED; a pre-registered amendment is queued."
+  },
+  {
+   "id": "bat-addressee",
+   "claim": "Egyptian fruit bat calls carry information about the addressee",
+   "paper": "Prat, Taub and Yovel 2016, Scientific Reports 6:39419",
+   "repo": "https://github.com/munimtechnologies/bat-addressee-test",
+   "procedures": [
+    {"id": "bat-free-shuffle", "procedure": "Addressee classifier with labels shuffled freely across the data set (published-style)",
+     "world": "Labels follow which bats were addressed on which recording days only",
+     "worlds": 4, "hits": 4, "rate": 1.0,
+     "source_file": "results/bat/bat_results.json", "source_key": "confound.naive_detected"}
+   ],
+   "calibrated": "Shuffles within each emitter's recording day: mean balanced accuracy 0.526 against a day-blocked null of 0.447, p 0.005; 0 of 4 day-only worlds detected, 5 of 5 planted-effect worlds detected.",
+   "calibrated_source": "results/bat/bat_results.json",
+   "verdict": "SURVIVES",
+   "verdict_note": "About 44% of the published-style excess is reachable by day composition alone, but the rest survives."
+  },
+  {
+   "id": "elephant-names",
+   "claim": "African elephants address one another with individually specific name-like calls",
+   "paper": "Pardo et al. 2024, Nature Ecology and Evolution",
+   "repo": "https://github.com/munimtechnologies/elephant-names-test",
+   "procedures": [
+    {"id": "elephant-naive", "procedure": "Receiver labels shuffled within caller and relationship across dates (naive null)",
+     "world": "Drift worlds: call features drift with time, no receiver-specific calls",
+     "worlds": 20, "hits": 20, "rate": 1.0,
+     "source_file": "results/elephant/elephant_results.json", "source_key": "drift_fooled_rate_cr"}
+   ],
+   "calibrated": "Shuffles within caller, date and relationship: p 0.383, but only 4 informative blocks (11 calls) and power 0.05.",
+   "calibrated_source": "results/elephant/elephant_results.json",
+   "verdict": "UNDECIDED",
+   "verdict_note": "Registered verdict UNDERPOWERED: the public data cannot separate names from day effects."
+  },
+  {
+   "id": "chimp-additive",
+   "claim": "Wild chimpanzee 'additive' call pairs combine two meanings to report two concurrent events",
+   "paper": "Girard-Buttoz et al. 2025, Science Advances",
+   "repo": "https://github.com/munimtechnologies/chimp-bigram-test",
+   "procedures": [
+    {"id": "chimp-distance", "procedure": "Published criterion: A and B are the two single calls closest to the pair's average event profile",
+     "world": "Pure A-or-B mixtures built from real utterances (nothing added)",
+     "worlds": 1600, "hits": 1132, "rate": 0.7075,
+     "source_file": "results/chimp/chimp_results.json", "source_key": "mixture_pair_closest"}
+   ],
+   "calibrated": "Per-utterance conjunction test: the A-or-B mixture was rejected for 0 of 8 additive pairs; for the 3 pairs with at least 80% power the label is mixture not rejected.",
+   "calibrated_source": "RESULTS-CHIMP.md",
+   "verdict": "NOT_SUPPORTED",
+   "verdict_note": "Where the test had power, the pairs behave like a mixture of the two calls' situations; five pairs are underpowered."
+  },
+  {
+   "id": "mangabey-order",
+   "claim": "Sooty mangabeys change the meaning of a call pair by its order",
+   "paper": "Le Floch et al. 2026, BMC Biology",
+   "repo": "https://github.com/munimtechnologies/mangabey-order-test",
+   "procedures": [
+    {"id": "mangabey-pooled", "procedure": "Caller-blind pooled test of order against context (our stand-in; the paper used a Bayesian model)",
+     "world": "W0: order labels permuted within caller",
+     "worlds": 2000, "hits": 105, "rate": 0.0525,
+     "source_file": "results/mangabey_results.json", "source_key": "analysis.W0.pooled_fires"}
+   ],
+   "calibrated": "Exact conditional test within 15 females: T 20 against null mean 7.061, p two-sided 0.0002; every leave-one-female-out p at most 0.0075; false-alarm rate 0.021.",
+   "calibrated_source": "results/RESULTS-MANGABEY.md",
+   "verdict": "SURVIVES",
+   "verdict_note": "Flag DAY_CONFOUND: the female-by-day test has too few same-day pairs to be informative."
+  },
+  {
+   "id": "whale-tempo",
+   "claim": "Sperm whale codas combine a rhythm with one of five discrete tempo types",
+   "paper": "Sharma et al. 2024, Nature Communications",
+   "repo": "https://github.com/munimtechnologies/coda-tempo-test",
+   "procedures": [
+    {"id": "tempo-peaks", "procedure": "Five tempo peaks in the pooled histogram of coda durations (published evidence for tempo types)",
+     "world": "Each rhythm's durations drawn from a single-peaked distribution (tempo-free)",
+     "worlds": 999, "hits": 0, "rate": 0.0,
+     "source_file": "results/tempo/tempo_results.json", "source_key": "t1.f_all"},
+    {"id": "tempo-count", "procedure": "Number of occupied rhythm-tempo combinations (34 in the real codas)",
+     "world": "Same tempo-free surrogates cut at the same four tempo boundaries",
+     "worlds": 999, "hits": 999, "rate": 1.0,
+     "source_file": "results/tempo/tempo_results.json", "source_key": "t1.null_c_min (35) against t1.c_obs (34)"}
+   ],
+   "calibrated": "0 of 999 tempo-free surrogates show all five pooled peaks; the clan's commonest coda 1+1+3 is multimodal (Silverman p 0.001, Holm) and multimodal inside 4 of 10 social units; test size at most 0.02.",
+   "calibrated_source": "RESULTS-TEMPO.md",
+   "verdict": "SURVIVES",
+   "verdict_note": "Tempo types are real; the combination count, by contrast, is reached by every tempo-free surrogate and is no evidence of free combination."
+  }
+ ],
+ "summary": {
+  "claims": 9,
+  "procedures": 10,
+  "fired_at_least_0.30": 8,
+  "calibrated_at_most_0.10": 2,
+  "verdicts": {"SURVIVES": 4, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 1, "UNDECIDED": 3}
+ },
+ "prior_art": [
+  "Mundry and Sommer 2007, Animal Behaviour, doi:10.1016/j.anbehav.2006.12.028 (discriminant analysis with nonindependent data; permuted DFA)",
+  "Waller et al. 2013, Animal Behaviour, doi:10.1016/j.anbehav.2013.05.038 (38.6% of primate communication papers pseudoreplicate)",
+  "Whitehouse et al. 2023, International Journal of Primatology, doi:10.1007/s10764-023-00399-y (ten years on)",
+  "Jadoul et al. 2025, Annals of the New York Academy of Sciences, doi:10.1111/nyas.70037 (hidden assumptions of integer-ratio rhythm analyses; the uniform-null critique is theirs)",
+  "Wartel et al. 2026, PeerJ, doi:10.7717/peerj.21651 (bonobo compositionality: 84.3% false-positive rate in matched simulations)"
+ ],
+ "pending": ["dolphin-coercion-test (Bouchard et al. 2026, PNAS)", "parrot-duet-syntax-test (Dahlin et al. 2026)", "whale-clan-marking-test (Hersh et al. 2022, PNAS)", "dog-button-test (Bastos et al. 2024)", "molerat-dialect-test (Barker et al. 2021, Science)"]
+}

@@ -1,0 +1,52 @@
+# Ledger: calibrated re-tests of headline animal-communication claims
+
+MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22 with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0. The machine-readable version, with the exact source file and key of every number, is [results/ledger.json](results/ledger.json); `python -m unittest -v test_ledger` checks it.
+
+**What this is.** Each row is a published claim that one of MV2's open projects re-tested with a pre-registered, calibrated test on the authors' own public data. "Published-style procedure" is the published test, or our closest reconstruction of it. "False-alarm rate" is how often that procedure reported the effect in worlds built from the real data with the effect removed but the suspected structure (bouts, days, callers, rhythm mixtures) kept.
+
+**Selection warning.** We picked these claims because we suspected their tests. The rates say nothing about the field as a whole, and each world embodies one specific confound.
+
+## Published-style procedures in worlds with no effect
+
+| claim | procedure | worlds with no effect | reported an effect | rate | source |
+|---|---|---|---|---|---|
+| Chimpanzee drumming (Eleuteri et al. 2025) | Welch t, bouts as units | 200 | 192 | 0.960 | chimp-drum-test: results/drum/drum_results.json |
+| Orangutan rhythm (Lameira et al. 2024) | uniform-null isochrony declaration | 1,999 | 1,999 | 1.000 | orangutan-rhythm-test: results/rhythm_results.json |
+| Sperm whale vowel length (Begus et al.) | a vs i within whale, codas as units | 200 | 71 | 0.355 | whale-vowel-test: RESULTS-DUR.md |
+| Sperm whale coarticulation (Begus et al.) | first-click mismatch, codas as units | 200 | 152 | 0.760 | whale-vowel-test: results/coart/vowel3_results.json |
+| Fruit bat addressee (Prat et al. 2016) | classifier, free label shuffle | 4 | 4 | 1.000 | bat-addressee-test: results/bat/bat_results.json |
+| Elephant names (Pardo et al. 2024) | receiver shuffle across dates | 20 | 20 | 1.000 | elephant-names-test: results/elephant/elephant_results.json |
+| Chimpanzee additive pairs (Girard-Buttoz et al. 2025) | closest-single-calls criterion | 1,600 | 1,132 | 0.7075 | chimp-bigram-test: results/chimp/chimp_results.json |
+| Mangabey call order (Le Floch et al. 2026) | caller-blind pooled test (our stand-in) | 2,000 | 105 | 0.0525 | mangabey-order-test: results/mangabey_results.json |
+| Sperm whale tempo types (Sharma et al. 2024) | five pooled duration peaks | 999 | 0 | 0.000 | coda-tempo-test: results/tempo/tempo_results.json |
+| Sperm whale tempo types (Sharma et al. 2024) | count of rhythm-tempo combinations | 999 | 999 | 1.000 | coda-tempo-test: results/tempo/tempo_results.json |
+
+8 of 10 procedures reported an effect in at least 30% of worlds that had none; 2 stayed at or below 10%.
+
+## Calibrated tests and verdicts
+
+| claim | calibrated test (registered) | verdict |
+|---|---|---|
+| Chimpanzee drumming | Eastern alternation beyond each bout's own gaps p 0.0001; subspecies difference with 11 communities as units p 0.103 (power 0.275) | SURVIVES_IN_PART |
+| Orangutan rhythm | full pulses beyond within-train shuffles p 0.0005, beyond local shuffles p 0.0010 | SURVIVES |
+| Sperm whale vowel length | within-bout D +0.1136 s, p 0.0001, but the test's own size was 0.190 | UNDECIDED |
+| Sperm whale coarticulation | first and last clicks both mismatch; asymmetry test size 0.205 | UNDECIDED |
+| Fruit bat addressee | shuffles within each bat's day: 0.526 against 0.447, p 0.005 | SURVIVES |
+| Elephant names | shuffles within caller, date and relationship: p 0.383, power 0.05 | UNDECIDED |
+| Chimpanzee additive pairs | per-utterance conjunction test: mixture rejected for 0 of 8 pairs (3 powered) | NOT_SUPPORTED |
+| Mangabey call order | exact test within 15 females: p 0.0002, size 0.021 | SURVIVES |
+| Sperm whale tempo types | 0 of 999 tempo-free surrogates show all five peaks; 1+1+3 multimodal p 0.001 | SURVIVES |
+
+Verdicts: 4 SURVIVES, 1 SURVIVES_IN_PART, 1 NOT_SUPPORTED, 3 UNDECIDED.
+
+## Reading
+
+Unsafe tests were the rule in this set, but most of the effects they reported were real anyway. Of the six claims a calibrated test could decide, five held in full or in part. The one that failed (chimpanzee additive pairs) failed because its criterion cannot tell "A and B at once" from "sometimes A, sometimes B", not because of pseudoreplication. Three claims stay undecided: two because our own registered test failed its calibration, one because the public data are too thin.
+
+## Prior art
+
+Pooling and pseudoreplication in animal-communication statistics are well documented: Mundry and Sommer 2007 (Animal Behaviour, doi:10.1016/j.anbehav.2006.12.028), Waller et al. 2013 (Animal Behaviour, doi:10.1016/j.anbehav.2013.05.038), Whitehouse et al. 2023 (International Journal of Primatology, doi:10.1007/s10764-023-00399-y), Jadoul et al. 2025 on the uniform null behind integer-ratio rhythm analyses (Annals of the New York Academy of Sciences, doi:10.1111/nyas.70037), and for one headline claim, Wartel et al. 2026 on bonobo compositionality (PeerJ, doi:10.7717/peerj.21651). What this ledger adds is a measured false-alarm rate, claim by claim, for nine recent headline results, next to a calibrated verdict on the effect itself.
+
+## Pending
+
+dolphin-coercion-test, parrot-duet-syntax-test, whale-clan-marking-test, dog-button-test and molerat-dialect-test are pre-registered and waiting for compute. Each will be added when graded.
