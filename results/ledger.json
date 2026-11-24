@@ -1,9 +1,9 @@
 {
- "version": "calibrated-animal-claims-ledger-3",
+ "version": "calibrated-animal-claims-ledger-4",
  "date": "2026-11-24",
  "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
  "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Rows of kind 'negative' are published claims that an effect is absent; for them the ledger gives the calibrated test and its measured power instead of a false-alarm rate. Every number is copied from the named file in the named repository; nothing here is re-computed.",
- "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, rhythm mixtures) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
+ "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, rhythm mixtures, unequal button use) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
  "claims": [
   {
    "id": "chimp-drum",
@@ -183,22 +183,39 @@
    "calibrated_source": "READING-ORDER.md",
    "verdict": "NOT_SUPPORTED",
    "verdict_note": "Registered verdict POOLING_EXPLAINS at the level of sequence types: within groups the call two back adds nothing, while the in-sample order test prefers order 2 in every first-order world. The token-level claim is untested because those data are not public."
+  },
+  {
+   "id": "dog-button-network",
+   "claim": "Soundboard-trained dogs' two-button combinations form non-random networks: each dog's Randomness Index lies well below that of Erdos-Renyi random graphs",
+   "paper": "Bastos, Houghton, Naranjo and Rossano 2024, Scientific Reports 14:28771",
+   "repo": "https://github.com/munimtechnologies/dog-button-test",
+   "procedures": [
+    {"id": "dog-ri-vs-er", "procedure": "Authors' per-dog criterion: Randomness Index at least 0.2 below the mean of Erdos-Renyi graphs of the same size and density (concept-level networks of pairs seen at least twice)",
+     "world": "Each eligible dog's own pair events re-paired at random so that every concept keeps its number of pairings (button popularity only, no pairing preference); criterion applied to the mean of 1,000 re-pairings per dog, one world per dog",
+     "worlds": 139, "hits": 127, "rate": 0.913669064748,
+     "source_file": "results/per_dog.csv", "source_key": "eligible rows with ri_pop_mean < ri_er_mean - 0.2 (checked by test_reading_counts.py)"}
+   ],
+   "calibrated": "Popularity-only null over 133 dogs: mean real RI -0.564 against -0.766 for popularity and -0.209 for Erdos-Renyi; popularity explains 1.566 of the Erdos-Renyi gap; group p (real more negative than popularity) 1.0; 24 of 133 dogs pass the authors' criterion against popularity (93 against Erdos-Renyi); 7 have per-dog p <= 0.05.",
+   "calibrated_source": "results/dogbutton_results.json",
+   "verdict": "NOT_SUPPORTED",
+   "verdict_note": "Registered verdict POPULARITY_EXPLAINS_MOST_OF_GAP: unequal button use alone gives a more negative index than the dogs' own networks. Only the network evidence is tested; the paper's population-level pair model with a popularity offset and its non-imitation result are untouched. Public concept-level tables, not the paper's button-label networks."
   }
  ],
  "summary": {
-  "claims": 11,
-  "procedures": 11,
-  "fired_at_least_0.30": 9,
+  "claims": 12,
+  "procedures": 12,
+  "fired_at_least_0.30": 10,
   "calibrated_at_most_0.10": 2,
   "negative_claims": 1,
-  "verdicts": {"SURVIVES": 5, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 2, "UNDECIDED": 3}
+  "verdicts": {"SURVIVES": 5, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 3, "UNDECIDED": 3}
  },
  "prior_art": [
   "Mundry and Sommer 2007, Animal Behaviour, doi:10.1016/j.anbehav.2006.12.028 (discriminant analysis with nonindependent data; permuted DFA)",
   "Waller et al. 2013, Animal Behaviour, doi:10.1016/j.anbehav.2013.05.038 (38.6% of primate communication papers pseudoreplicate)",
   "Whitehouse et al. 2023, International Journal of Primatology, doi:10.1007/s10764-023-00399-y (ten years on)",
   "Jadoul et al. 2025, Annals of the New York Academy of Sciences, doi:10.1111/nyas.70037 (hidden assumptions of integer-ratio rhythm analyses; the uniform-null critique is theirs)",
-  "Wartel et al. 2026, PeerJ, doi:10.7717/peerj.21651 (bonobo compositionality: 84.3% false-positive rate in matched simulations)"
+  "Wartel et al. 2026, PeerJ, doi:10.7717/peerj.21651 (bonobo compositionality: 84.3% false-positive rate in matched simulations)",
+  "Soffer and Vazquez 2005, Physical Review E 71:057101 (clustering falling with degree as a degree-correlation bias rather than hierarchy)"
  ],
- "pending": ["dolphin-coercion-test (Bouchard et al. 2026, PNAS)", "parrot-duet-syntax-test (Dahlin et al. 2026)", "whale-clan-marking-test (Hersh et al. 2022, PNAS)", "dog-button-test (Bastos et al. 2024)", "molerat-dialect-test (Barker et al. 2021, Science)", "magpie-dialect-test (Mason, King and Ridley 2026, Proceedings of the Royal Society B)", "magpie-order-test amendment 1 (the magpie preprint's own in-sample and zero-order permutation procedures)", "marmoset-order-test (Bosshard et al. 2024, Royal Society Open Science)"]
+ "pending": ["dolphin-coercion-test (Bouchard et al. 2026, PNAS)", "parrot-duet-syntax-test (Dahlin et al. 2026)", "whale-clan-marking-test (Hersh et al. 2022, PNAS)", "molerat-dialect-test (Barker et al. 2021, Science)", "magpie-dialect-test (Mason, King and Ridley 2026, Proceedings of the Royal Society B)", "magpie-order-test amendment 1 (the magpie preprint's own in-sample and zero-order permutation procedures)", "marmoset-order-test (Bosshard et al. 2024, Royal Society Open Science)"]
 }
