@@ -1,8 +1,8 @@
 # Ledger: calibrated re-tests of headline animal-communication claims
 
-MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22 with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0. The machine-readable version, with the exact source file and key of every number, is [results/ledger.json](results/ledger.json); `python -m unittest -v test_ledger` checks it.
+MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22, updated 2026-11-24, with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0. The machine-readable version, with the exact source file and key of every number, is [results/ledger.json](results/ledger.json); `python -m unittest -v test_ledger` checks it.
 
-**What this is.** Each row is a published claim that one of MV2's open projects re-tested with a pre-registered, calibrated test on the authors' own public data. "Published-style procedure" is the published test, or our closest reconstruction of it. "False-alarm rate" is how often that procedure reported the effect in worlds built from the real data with the effect removed but the suspected structure (bouts, days, callers, rhythm mixtures) kept.
+**What this is.** Each row is a published claim that one of MV2's open projects re-tested with a pre-registered, calibrated test on the authors' own public data. "Published-style procedure" is the published test, or our closest reconstruction of it. "False-alarm rate" is how often that procedure reported the effect in worlds built from the real data with the effect removed but the suspected structure (bouts, days, callers, rhythm mixtures) kept. Claims that an effect is **absent** are listed separately, with the power of the calibrated test.
 
 **Selection warning.** We picked these claims because we suspected their tests. The rates say nothing about the field as a whole, and each world embodies one specific confound.
 
@@ -23,6 +23,14 @@ MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22 with AI agents work
 
 8 of 10 procedures reported an effect in at least 30% of worlds that had none; 2 stayed at or below 10%.
 
+## Negative claims: calibrated test and its power
+
+| claim | calibrated test (registered) | planted effect found | verdict |
+|---|---|---|---|
+| Hyena whoops carry no clan signature (Lehmann et al. 2022) | leave-one-hyena-out clan accuracy 0.2403 against a relabeling null of 0.2207, p 0.34; handheld only p 0.1767; the authors' scheme reproduced, excess p 0.09 | 40 of 40 worlds with a clan offset half the size of individual differences (hyena-clan-signature-test: results/hyena_results.json) | SURVIVES |
+
+The paper reported this negative without a significance test or power analysis. It holds: no clan signal under a calibrated test that would have found a whole-whoop clan offset even a quarter the size of individual differences (40 of 40 worlds at every planted size).
+
 ## Calibrated tests and verdicts
 
 | claim | calibrated test (registered) | verdict |
@@ -36,17 +44,18 @@ MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22 with AI agents work
 | Chimpanzee additive pairs | per-utterance conjunction test: mixture rejected for 0 of 8 pairs (3 powered) | NOT_SUPPORTED |
 | Mangabey call order | exact test within 15 females: p 0.0002, size 0.021 | SURVIVES |
 | Sperm whale tempo types | 0 of 999 tempo-free surrogates show all five peaks; 1+1+3 multimodal p 0.001 | SURVIVES |
+| Hyena: no clan signature (negative) | relabeling null p 0.34, power 1.0 at half the individual spread | SURVIVES |
 
-Verdicts: 4 SURVIVES, 1 SURVIVES_IN_PART, 1 NOT_SUPPORTED, 3 UNDECIDED.
+Verdicts: 5 SURVIVES, 1 SURVIVES_IN_PART, 1 NOT_SUPPORTED, 3 UNDECIDED.
 
 ## Reading
 
-Unsafe tests were the rule in this set, but most of the effects they reported were real anyway. Of the six claims a calibrated test could decide, five held in full or in part. The one that failed (chimpanzee additive pairs) failed because its criterion cannot tell "A and B at once" from "sometimes A, sometimes B", not because of pseudoreplication. Three claims stay undecided: two because our own registered test failed its calibration, one because the public data are too thin.
+Unsafe tests were the rule in this set, but most of the effects they reported were real anyway. Of the seven claims a calibrated test could decide, six held in full or in part, including the one negative claim (hyena clans). The one that failed (chimpanzee additive pairs) failed because its criterion cannot tell "A and B at once" from "sometimes A, sometimes B", not because of pseudoreplication. Three claims stay undecided: two because our own registered test failed its calibration, one because the public data are too thin.
 
 ## Prior art
 
-Pooling and pseudoreplication in animal-communication statistics are well documented: Mundry and Sommer 2007 (Animal Behaviour, doi:10.1016/j.anbehav.2006.12.028), Waller et al. 2013 (Animal Behaviour, doi:10.1016/j.anbehav.2013.05.038), Whitehouse et al. 2023 (International Journal of Primatology, doi:10.1007/s10764-023-00399-y), Jadoul et al. 2025 on the uniform null behind integer-ratio rhythm analyses (Annals of the New York Academy of Sciences, doi:10.1111/nyas.70037), and for one headline claim, Wartel et al. 2026 on bonobo compositionality (PeerJ, doi:10.7717/peerj.21651). What this ledger adds is a measured false-alarm rate, claim by claim, for nine recent headline results, next to a calibrated verdict on the effect itself.
+Pooling and pseudoreplication in animal-communication statistics are well documented: Mundry and Sommer 2007 (Animal Behaviour, doi:10.1016/j.anbehav.2006.12.028), Waller et al. 2013 (Animal Behaviour, doi:10.1016/j.anbehav.2013.05.038), Whitehouse et al. 2023 (International Journal of Primatology, doi:10.1007/s10764-023-00399-y), Jadoul et al. 2025 on the uniform null behind integer-ratio rhythm analyses (Annals of the New York Academy of Sciences, doi:10.1111/nyas.70037), and for one headline claim, Wartel et al. 2026 on bonobo compositionality (PeerJ, doi:10.7717/peerj.21651). What this ledger adds is a measured false-alarm rate, claim by claim, for recent headline results, next to a calibrated verdict on the effect itself.
 
 ## Pending
 
-dolphin-coercion-test, parrot-duet-syntax-test, whale-clan-marking-test, dog-button-test and molerat-dialect-test are pre-registered and waiting for compute. Each will be added when graded.
+dolphin-coercion-test, parrot-duet-syntax-test, whale-clan-marking-test, dog-button-test, molerat-dialect-test and magpie-dialect-test are pre-registered and waiting for compute. Each will be added when graded.

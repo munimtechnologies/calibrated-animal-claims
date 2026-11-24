@@ -4,6 +4,8 @@
 
 Checks that every claim row is complete, every false-alarm rate equals hits / worlds,
 every verdict is one of four labels, and the summary counts match the rows.
+Rows of kind "negative" (a published claim that an effect is ABSENT) carry a power block
+instead of false-alarm procedures; its rate must equal hits / worlds too.
 Run: python -m unittest -v test_ledger
 """
 import json
@@ -17,6 +19,7 @@ ROW_KEYS = ("id", "claim", "paper", "repo", "procedures", "calibrated",
             "calibrated_source", "verdict", "verdict_note")
 PROC_KEYS = ("id", "procedure", "world", "worlds", "hits", "rate",
              "source_file", "source_key")
+POWER_KEYS = ("planted", "worlds", "hits", "rate", "source_file", "source_key")
 
 
 def load():
@@ -38,7 +41,10 @@ class TestLedger(unittest.TestCase):
                 self.assertIn(k, r, r.get("id"))
             self.assertIn(r["verdict"], VERDICTS)
             self.assertTrue(r["repo"].startswith("https://github.com/munimtechnologies/"))
-            self.assertGreaterEqual(len(r["procedures"]), 1)
+            if r.get("kind") == "negative":
+                self.assertIn("power", r, r["id"])
+            else:
+                self.assertGreaterEqual(len(r["procedures"]), 1)
 
     def test_rates_match_counts(self):
         pids = [p["id"] for p in self.procs]
@@ -52,6 +58,17 @@ class TestLedger(unittest.TestCase):
             self.assertAlmostEqual(p["rate"], p["hits"] / p["worlds"], places=9)
             self.assertTrue(p["source_file"])
 
+    def test_power_blocks(self):
+        for r in self.rows:
+            if r.get("kind") != "negative":
+                continue
+            pw = r["power"]
+            for k in POWER_KEYS:
+                self.assertIn(k, pw, r["id"])
+            self.assertGreater(pw["worlds"], 0)
+            self.assertLessEqual(pw["hits"], pw["worlds"])
+            self.assertAlmostEqual(pw["rate"], pw["hits"] / pw["worlds"], places=9)
+
     def test_summary(self):
         s = self.d["summary"]
         self.assertEqual(s["claims"], len(self.rows))
@@ -60,6 +77,8 @@ class TestLedger(unittest.TestCase):
                          sum(1 for p in self.procs if p["rate"] >= 0.30))
         self.assertEqual(s["calibrated_at_most_0.10"],
                          sum(1 for p in self.procs if p["rate"] <= 0.10))
+        self.assertEqual(s["negative_claims"],
+                         sum(1 for r in self.rows if r.get("kind") == "negative"))
         for v in VERDICTS:
             self.assertEqual(s["verdicts"][v],
                              sum(1 for r in self.rows if r["verdict"] == v))
