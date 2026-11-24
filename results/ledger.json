@@ -1,9 +1,9 @@
 {
- "version": "calibrated-animal-claims-ledger-2",
+ "version": "calibrated-animal-claims-ledger-3",
  "date": "2026-11-24",
  "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
  "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Rows of kind 'negative' are published claims that an effect is absent; for them the ledger gives the calibrated test and its measured power instead of a false-alarm rate. Every number is copied from the named file in the named repository; nothing here is re-computed.",
- "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, rhythm mixtures) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
+ "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, rhythm mixtures) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
  "claims": [
   {
    "id": "chimp-drum",
@@ -167,15 +167,31 @@
    "calibrated_source": "results/hyena_results.json",
    "verdict": "SURVIVES",
    "verdict_note": "The negative holds: no clan signal under a calibrated test that found a planted clan offset a quarter the size of individual differences in 40 of 40 worlds. Power covers whole-whoop shifts only."
+  },
+  {
+   "id": "magpie-second-order",
+   "claim": "Western Australian magpie call sequences have second-order structure: each call depends on the two calls before it",
+   "paper": "Mason, Walsh, King and Ridley 2026, bioRxiv doi:10.64898/2026.06.15.732496 (preprint)",
+   "repo": "https://github.com/munimtechnologies/magpie-order-test",
+   "procedures": [
+    {"id": "magpie-markov-aic", "procedure": "Order-2 against order-1 Markov chain chosen by AIC on the pooled sequence types, observed transitions counted as parameters (our type-level stand-in; the preprint's own procedures are re-built in a queued amendment)",
+     "world": "H0b: each social group's own first-order chain, with looped chunks kept as loops (no second-order rule)",
+     "worlds": 999, "hits": 999, "rate": 1.0,
+     "source_file": "results/order/order_results.json", "source_key": "ledger.fires_H0b"}
+   ],
+   "calibrated": "Leave-one-type-out, group-aware gain of order 2 over order 1: G 0.0000 nats on 224 group records (lambda chosen 0), p 1.0 against group first-order worlds with and without loops (999 each); power 0.935 at rho 0.3. Type-level data only.",
+   "calibrated_source": "READING-ORDER.md",
+   "verdict": "NOT_SUPPORTED",
+   "verdict_note": "Registered verdict POOLING_EXPLAINS at the level of sequence types: within groups the call two back adds nothing, while the in-sample order test prefers order 2 in every first-order world. The token-level claim is untested because those data are not public."
   }
  ],
  "summary": {
-  "claims": 10,
-  "procedures": 10,
-  "fired_at_least_0.30": 8,
+  "claims": 11,
+  "procedures": 11,
+  "fired_at_least_0.30": 9,
   "calibrated_at_most_0.10": 2,
   "negative_claims": 1,
-  "verdicts": {"SURVIVES": 5, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 1, "UNDECIDED": 3}
+  "verdicts": {"SURVIVES": 5, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 2, "UNDECIDED": 3}
  },
  "prior_art": [
   "Mundry and Sommer 2007, Animal Behaviour, doi:10.1016/j.anbehav.2006.12.028 (discriminant analysis with nonindependent data; permuted DFA)",
@@ -184,5 +200,5 @@
   "Jadoul et al. 2025, Annals of the New York Academy of Sciences, doi:10.1111/nyas.70037 (hidden assumptions of integer-ratio rhythm analyses; the uniform-null critique is theirs)",
   "Wartel et al. 2026, PeerJ, doi:10.7717/peerj.21651 (bonobo compositionality: 84.3% false-positive rate in matched simulations)"
  ],
- "pending": ["dolphin-coercion-test (Bouchard et al. 2026, PNAS)", "parrot-duet-syntax-test (Dahlin et al. 2026)", "whale-clan-marking-test (Hersh et al. 2022, PNAS)", "dog-button-test (Bastos et al. 2024)", "molerat-dialect-test (Barker et al. 2021, Science)", "magpie-dialect-test (Mason, King and Ridley 2026, Proceedings of the Royal Society B)"]
+ "pending": ["dolphin-coercion-test (Bouchard et al. 2026, PNAS)", "parrot-duet-syntax-test (Dahlin et al. 2026)", "whale-clan-marking-test (Hersh et al. 2022, PNAS)", "dog-button-test (Bastos et al. 2024)", "molerat-dialect-test (Barker et al. 2021, Science)", "magpie-dialect-test (Mason, King and Ridley 2026, Proceedings of the Royal Society B)", "magpie-order-test amendment 1 (the magpie preprint's own in-sample and zero-order permutation procedures)", "marmoset-order-test (Bosshard et al. 2024, Royal Society Open Science)"]
 }

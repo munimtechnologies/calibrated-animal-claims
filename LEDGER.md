@@ -2,7 +2,7 @@
 
 MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22, updated 2026-11-24, with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0. The machine-readable version, with the exact source file and key of every number, is [results/ledger.json](results/ledger.json); `python -m unittest -v test_ledger` checks it.
 
-**What this is.** Each row is a published claim that one of MV2's open projects re-tested with a pre-registered, calibrated test on the authors' own public data. "Published-style procedure" is the published test, or our closest reconstruction of it. "False-alarm rate" is how often that procedure reported the effect in worlds built from the real data with the effect removed but the suspected structure (bouts, days, callers, rhythm mixtures) kept. Claims that an effect is **absent** are listed separately, with the power of the calibrated test.
+**What this is.** Each row is a published claim that one of MV2's open projects re-tested with a pre-registered, calibrated test on the authors' own public data. "Published-style procedure" is the published test, or our closest reconstruction of it. "False-alarm rate" is how often that procedure reported the effect in worlds built from the real data with the effect removed but the suspected structure (bouts, days, callers, social groups, rhythm mixtures) kept. Claims that an effect is **absent** are listed separately, with the power of the calibrated test.
 
 **Selection warning.** We picked these claims because we suspected their tests. The rates say nothing about the field as a whole, and each world embodies one specific confound.
 
@@ -20,8 +20,9 @@ MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22, updated 2026-11-24
 | Mangabey call order (Le Floch et al. 2026) | caller-blind pooled test (our stand-in) | 2,000 | 105 | 0.0525 | mangabey-order-test: results/mangabey_results.json |
 | Sperm whale tempo types (Sharma et al. 2024) | five pooled duration peaks | 999 | 0 | 0.000 | coda-tempo-test: results/tempo/tempo_results.json |
 | Sperm whale tempo types (Sharma et al. 2024) | count of rhythm-tempo combinations | 999 | 999 | 1.000 | coda-tempo-test: results/tempo/tempo_results.json |
+| Magpie second-order sequences (Mason et al. 2026, preprint) | order 2 vs order 1 by AIC on pooled types (our stand-in) | 999 | 999 | 1.000 | magpie-order-test: results/order/order_results.json |
 
-8 of 10 procedures reported an effect in at least 30% of worlds that had none; 2 stayed at or below 10%.
+9 of 11 procedures reported an effect in at least 30% of worlds that had none; 2 stayed at or below 10%.
 
 ## Negative claims: calibrated test and its power
 
@@ -45,12 +46,13 @@ The paper reported this negative without a significance test or power analysis. 
 | Mangabey call order | exact test within 15 females: p 0.0002, size 0.021 | SURVIVES |
 | Sperm whale tempo types | 0 of 999 tempo-free surrogates show all five peaks; 1+1+3 multimodal p 0.001 | SURVIVES |
 | Hyena: no clan signature (negative) | relabeling null p 0.34, power 1.0 at half the individual spread | SURVIVES |
+| Magpie second-order sequences | cross-validated group-aware gain of order 2: 0.0000 nats, p 1.0 against group first-order worlds; power 0.935 (type level only) | NOT_SUPPORTED |
 
-Verdicts: 5 SURVIVES, 1 SURVIVES_IN_PART, 1 NOT_SUPPORTED, 3 UNDECIDED.
+Verdicts: 5 SURVIVES, 1 SURVIVES_IN_PART, 2 NOT_SUPPORTED, 3 UNDECIDED.
 
 ## Reading
 
-Unsafe tests were the rule in this set, but most of the effects they reported were real anyway. Of the seven claims a calibrated test could decide, six held in full or in part, including the one negative claim (hyena clans). The one that failed (chimpanzee additive pairs) failed because its criterion cannot tell "A and B at once" from "sometimes A, sometimes B", not because of pseudoreplication. Three claims stay undecided: two because our own registered test failed its calibration, one because the public data are too thin.
+Unsafe tests were the rule in this set, but most of the effects they reported were real anyway. Of the eight claims a calibrated test could decide, six held in full or in part, including the one negative claim (hyena clans). Two failed. The chimpanzee additive pairs failed because their criterion cannot tell "A and B at once" from "sometimes A, sometimes B". The magpie second-order claim failed at the level of sequence types: an in-sample order test prefers order 2 in every world built from each group's first-order chain, and in the real data the call two back adds nothing once each group's own transitions are known (the preprint's token-level data are not public, and its own procedures are re-built in a queued amendment). Three claims stay undecided: two because our own registered test failed its calibration, one because the public data are too thin.
 
 ## Prior art
 
@@ -58,4 +60,4 @@ Pooling and pseudoreplication in animal-communication statistics are well docume
 
 ## Pending
 
-dolphin-coercion-test, parrot-duet-syntax-test, whale-clan-marking-test, dog-button-test, molerat-dialect-test and magpie-dialect-test are pre-registered and waiting for compute. Each will be added when graded.
+dolphin-coercion-test, parrot-duet-syntax-test, whale-clan-marking-test, dog-button-test, molerat-dialect-test, magpie-dialect-test, marmoset-order-test and amendment 1 of magpie-order-test are pre-registered and waiting for compute. Each will be added when graded.
