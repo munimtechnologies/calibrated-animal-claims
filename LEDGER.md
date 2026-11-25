@@ -1,8 +1,8 @@
 # Ledger: calibrated re-tests of headline animal-communication claims
 
-MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22, updated 2026-11-25 (version 7), with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0. The machine-readable version, with the exact source file and key of every number, is [results/ledger.json](results/ledger.json); `python -m unittest -v test_ledger` checks it.
+MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22, updated 2026-11-25 (version 8), with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0. The machine-readable version, with the exact source file and key of every number, is [results/ledger.json](results/ledger.json); `python -m unittest -v test_ledger` checks it.
 
-**What this is.** Each row is a published claim that one of MV2's open projects re-tested with a pre-registered, calibrated test on the authors' own public data. "Published-style procedure" is the published test, or our closest reconstruction of it. "False-alarm rate" is how often that procedure reported the effect in worlds built from the real data with the effect removed but the suspected structure (bouts, days, callers, social groups, recording sessions, rhythm mixtures, unequal button use, pair repertoires) kept. Claims that an effect is **absent** are listed separately, with the power of the calibrated test.
+**What this is.** Each row is a published claim that one of MV2's open projects re-tested with a pre-registered, calibrated test on the authors' own public data. "Published-style procedure" is the published test, or our closest reconstruction of it. "False-alarm rate" is how often that procedure reported the effect in worlds built from the real data with the effect removed but the suspected structure (bouts, days, callers, social groups, recording sessions, rhythm mixtures, unequal button use, pair repertoires, females as units) kept. Claims that an effect is **absent** are listed separately, with the power of the calibrated test.
 
 **Selection warning.** We picked these claims because we suspected their tests. The rates say nothing about the field as a whole, and each world embodies one specific confound.
 
@@ -26,8 +26,10 @@ MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22, updated 2026-11-25
 | Soundboard dog button networks (Bastos et al. 2024) | Randomness Index at least 0.2 below Erdos-Renyi (authors' per-dog criterion) | 139 (one popularity-only network per dog) | 127 | 0.914 | dog-button-test: results/per_dog.csv |
 | Parrot duet syntax (Dahlin et al. 2026) | pooled permutation test of adjacent calls (our stand-in) | 200 | 200 | 1.000 | parrot-duet-syntax-test: results/syntax/syntax_results.json |
 | Marmoset second-order sequences (Bosshard et al. 2024) | order 2 beats order 1 in leave-one-sequence-out cross-validation at every smoothing constant (authors' reading) | 499 | 0 | 0.000 | marmoset-order-test: results/marmoset_results.json |
+| Dolphin avoidance of coercive males (Bouchard et al. 2026) | trial-level interaction test, 34 playbacks as independent (our stand-in for the mixed model) | 19,448 (every labeling of 7 of 17 females) | 1,239 | 0.064 | dolphin-coercion-test: results/dolphin_results.json |
+| Magpie group repertoires (Mason, King and Ridley 2026) | the authors' mixed model and AICc decision, reproduced | 200 (each fledgling given a foreign group's records) | 200 | 1.000 | magpie-dialect-test: results/magpie_results.json |
 
-13 of 16 procedures reported an effect in at least 30% of worlds that had none; 3 stayed at or below 10%. The two new magpie rows are the preprint's own procedures, rebuilt from its Methods; the worlds are sequence types redrawn from one pooled first-order chain fitted to the real types.
+14 of 18 procedures reported an effect in at least 30% of worlds that had none; 4 stayed at or below 10%. New in version 8: the dolphin trial-level test was close to its nominal size, so our suspicion that 34 playbacks overstate 17 females was mostly unfounded for that contrast. The magpie group model, by contrast, says "group repertoire predicts" just as firmly when the "group" is one the fledgling never lived in.
 
 ## Negative claims: calibrated test and its power
 
@@ -44,7 +46,7 @@ The paper reported this negative without a significance test or power analysis. 
 | Chimpanzee drumming | Eastern alternation beyond each bout's own gaps p 0.0001; subspecies difference with 11 communities as units p 0.103 (power 0.275) | SURVIVES_IN_PART |
 | Orangutan rhythm | full pulses beyond within-train shuffles p 0.0005, beyond local shuffles p 0.0010 | SURVIVES |
 | Sperm whale vowel length | within-bout D +0.1136 s, p 0.0001, but the test's own size was 0.190 | UNDECIDED |
-| Sperm whale coarticulation | first and last clicks both mismatch; asymmetry test size 0.205 | UNDECIDED |
+| Sperm whale coarticulation | first and last clicks both mismatch; asymmetry test size 0.205; amendment 1 exact symmetry test (size 0.053): p 0.2747, power 0.457 | UNDECIDED |
 | Fruit bat addressee | shuffles within each bat's day: 0.526 against 0.447, p 0.005 | SURVIVES |
 | Elephant names | shuffles within caller, date and relationship: p 0.383, power 0.05 | UNDECIDED |
 | Chimpanzee additive pairs | per-utterance conjunction test: mixture rejected for 0 of 8 pairs (3 powered) | NOT_SUPPORTED |
@@ -55,12 +57,24 @@ The paper reported this negative without a significance test or power analysis. 
 | Soundboard dog button networks | popularity-only null over 133 dogs: real RI -0.564, popularity -0.766, Erdos-Renyi -0.209; popularity explains 1.566 of the gap; p 1.0 | NOT_SUPPORTED |
 | Parrot duet syntax | order within duet and sex: 2.2416 bits against 1.8916, p 0.0001 (size 0.030); co-occurrence beyond each pair's repertoire p 0.0001 (size 0.045) | SURVIVES |
 | Marmoset second-order sequences | held-out gain of order 2: 303.20 nats (297.35 holding out whole sessions); largest in 499 session first-order worlds 22.62, with looped chunks 52.40; p 0.0020 each; power 1.0 | SURVIVES |
+| Dolphin avoidance of coercive males | exact test over all 19,448 labelings of 7 of 17 females: p 0.0053; no single female or male removes it (max 0.0195, 0.0854); rank version p 0.0855; secondary effects p 0.878 and 0.140 | SURVIVES |
+| Magpie group repertoires | own-group overlap excess 0.1467 against random group assignments, p 0.0124 (size 1 of 200, power 50 of 50); group-specific order p 0.1612 (power 0.14) | SURVIVES |
 
-Verdicts: 7 SURVIVES, 1 SURVIVES_IN_PART, 3 NOT_SUPPORTED, 3 UNDECIDED.
+Verdicts: 9 SURVIVES, 1 SURVIVES_IN_PART, 3 NOT_SUPPORTED, 3 UNDECIDED.
+
+## Graded without a false-alarm rate
+
+| claim | calibrated test (registered) | verdict |
+|---|---|---|
+| Naked mole-rat colony dialects (Barker et al. 2021, Science) | trained on other recording days and other rats: excess over chance 0.1048 on the held-out day (2 colonies), p 0.0100 against a day-only world, power 0.80; published-style score 0.4004 against 0.0952 in day-only worlds; the authors' Random Forest reproduces (0.6647, chance 0.25) but scores -0.0725 on unseen days | SURVIVES (weakly) |
+
+No false-alarm rate of the published procedure was registered for this test, so it is not counted in the tables above (molerat-dialect-test: READING-STEP1.md).
 
 ## Reading
 
-Unsafe tests were the rule in this set, but most of the effects they reported were real anyway. Of the eleven claims a calibrated test could decide, eight held in full or in part, including the one negative claim (hyena clans). Three failed. The chimpanzee additive pairs failed because their criterion cannot tell "A and B at once" from "sometimes A, sometimes B". The magpie second-order claim failed at the level of sequence types, and both of the preprint's own procedures, rebuilt from its Methods, would have reported it anyway: the in-sample likelihood comparison preferred order 2 in all 2,997 first-order worlds we built, and the zero-order permutation test flagged second-order cells in 49% of pooled and 94% of group-with-loops first-order worlds. In the real data the call two back adds nothing once each group's own transitions are known (the preprint's token-level data are not public). The marmoset second-order claim, which the magpie preprint names as its benchmark, is the mirror image: its cross-validated test never fired in 1,996 worlds without second-order rules, and the real order-2 gain is about six times the largest gain in any of them. Whether part of that gain is a positional template rather than a dependency on the call two back is registered as the next test. The soundboard dogs' network evidence failed because the comparison graphs give every button the same chance of use: when each dog's own pairings are re-drawn keeping only how often each concept is used, the index comes out even more negative than in the real networks (the paper's other analyses of the dogs are not tested). The parrot duets show a third case: the effect is real but the published evidence is not. Calibrated tests find call order inside the duets. The paper's "syntactic rules", however, are reproduced as correlations of call-type counts across ten equal slices of the data file, and most of them vanish when whole duets are put in random order. Three claims stay undecided: two because our own registered test failed its calibration, one because the public data are too thin.
+Unsafe tests were the rule in this set, but most of the effects they reported were real anyway. Of the thirteen claims a calibrated test could decide, ten held in full or in part, including the one negative claim (hyena clans). Three failed. The chimpanzee additive pairs failed because their criterion cannot tell "A and B at once" from "sometimes A, sometimes B". The magpie second-order claim failed at the level of sequence types, and both of the preprint's own procedures, rebuilt from its Methods, would have reported it anyway. The marmoset second-order claim is the mirror image: its cross-validated test never fired in 1,996 worlds without second-order rules. The soundboard dogs' network evidence failed because the comparison graphs give every button the same chance of use.
+
+The parrot duets showed a third case, and version 8 adds a second one: **the effect is real but the published evidence does not measure it.** Magpie fledglings do share more of their own group's sequence types than other groups' (p 0.0124 under a calibrated test), but the published mixed model reports the same "group repertoire predicts" result in all 200 worlds where each fledgling is paired with a foreign group, because it has no term for how common each sequence type is. The dolphin result is the plain case: we expected the coercion effect to rest on one female, and it does not; it holds with the 17 females as units (p 0.0053), though it depends on a few long avoidances and the two secondary effects do not hold at that level. Three claims stay undecided: two because our own registered test failed its calibration (the sperm whale coarticulation amendment is now calibrated but underpowered), one because the public data are too thin.
 
 ## Prior art
 
@@ -68,4 +82,4 @@ Pooling and pseudoreplication in animal-communication statistics are well docume
 
 ## Pending
 
-dolphin-coercion-test, whale-clan-marking-test, molerat-dialect-test, magpie-dialect-test, amendment 1 of marmoset-order-test (position), amendment 2 of parrot-duet-syntax-test (robustness checks), and the tests of chimpanzee raspberry conventions, the zebra finch semantic magnet, shared human-animal taste in sounds and the 'universal' delta rhythm of animal calls are pre-registered and waiting for compute. Each will be added when graded.
+whale-clan-marking-test, amendment 1 of marmoset-order-test (position), amendment 2 of parrot-duet-syntax-test (robustness checks), and the tests of chimpanzee raspberry conventions, the zebra finch semantic magnet, shared human-animal taste in sounds, the 'universal' delta rhythm of animal calls, supra-regular recursion in primate call sequences and the power of the birdsong vocal-learning comparison are pre-registered and waiting for compute. Each will be added when graded.
