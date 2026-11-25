@@ -1,5 +1,5 @@
 {
- "version": "calibrated-animal-claims-ledger-6",
+ "version": "calibrated-animal-claims-ledger-7",
  "date": "2026-11-25",
  "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
  "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Rows of kind 'negative' are published claims that an effect is absent; for them the ledger gives the calibrated test and its measured power instead of a false-alarm rate. Every number is copied from the named file in the named repository; nothing here is re-computed.",
@@ -174,15 +174,23 @@
    "paper": "Mason, Walsh, King and Ridley 2026, bioRxiv doi:10.64898/2026.06.15.732496 (preprint)",
    "repo": "https://github.com/munimtechnologies/magpie-order-test",
    "procedures": [
-    {"id": "magpie-markov-aic", "procedure": "Order-2 against order-1 Markov chain chosen by AIC on the pooled sequence types, observed transitions counted as parameters (our type-level stand-in; the preprint's own procedures are re-built in a queued amendment)",
+    {"id": "magpie-markov-aic", "procedure": "Order-2 against order-1 Markov chain chosen by AIC on the pooled sequence types, observed transitions counted as parameters (our type-level stand-in)",
      "world": "H0b: each social group's own first-order chain, with looped chunks kept as loops (no second-order rule)",
      "worlds": 999, "hits": 999, "rate": 1.0,
-     "source_file": "results/order/order_results.json", "source_key": "ledger.fires_H0b"}
+     "source_file": "results/order/order_results.json", "source_key": "ledger.fires_H0b"},
+    {"id": "magpie-insample-loglik", "procedure": "Preprint's own model comparison, rebuilt from its Methods: order-2 against order-1 in-sample log-likelihood with additive smoothing k 0.0001 to 1, averaged over k, no penalty and no held-out data (type level)",
+     "world": "H0p: every sequence type redrawn at its own length from one pooled first-order chain (no second-order rule, no groups, no loops)",
+     "worlds": 999, "hits": 999, "rate": 1.0,
+     "source_file": "results/a1/order_a1_results.json", "source_key": "ledger.magpie-insample-loglik"},
+    {"id": "magpie-zero-order-perm", "procedure": "Preprint's own significance test, rebuilt from its Methods: each second-order transition probability against 10,000 zero-order token permutations, Benjamini-Hochberg at 0.05; fires if any cell is significant (type level)",
+     "world": "H0p: pooled first-order worlds as above (first 200 worlds)",
+     "worlds": 200, "hits": 98, "rate": 0.49,
+     "source_file": "results/a1/order_a1_results.json", "source_key": "ledger.magpie-zero-order-perm"}
    ],
-   "calibrated": "Leave-one-type-out, group-aware gain of order 2 over order 1: G 0.0000 nats on 224 group records (lambda chosen 0), p 1.0 against group first-order worlds with and without loops (999 each); power 0.935 at rho 0.3. Type-level data only.",
-   "calibrated_source": "READING-ORDER.md",
+   "calibrated": "Leave-one-type-out, group-aware gain of order 2 over order 1: G 0.0000 nats on 224 group records (lambda chosen 0), p 1.0 against group first-order worlds with and without loops (999 each); power 0.935 at rho 0.3. The preprint's own procedures both fire on the real types (in-sample gain 78.29 nats; 3 significant cells), but the real in-sample gain is below the 5th percentile of every first-order null (78.67 pooled, 87.99 group, 91.30 group with loops) and 3 cells is typical of them (share of group-with-loops worlds with at least 3: 0.886). Type-level data only.",
+   "calibrated_source": "READING-ORDER.md and READING-A1.md",
    "verdict": "NOT_SUPPORTED",
-   "verdict_note": "Registered verdict POOLING_EXPLAINS at the level of sequence types: within groups the call two back adds nothing, while the in-sample order test prefers order 2 in every first-order world. The token-level claim is untested because those data are not public."
+   "verdict_note": "Registered verdict POOLING_EXPLAINS at the level of sequence types: within groups the call two back adds nothing. Amendment 1 rebuilt the preprint's own two procedures and graded both UNSAFE: the in-sample comparison fired in 2,997 of 2,997 first-order worlds and the zero-order permutation test in 0.49 of pooled and 0.94 of group-with-loops first-order worlds. The token-level claim is untested because those data are not public."
   },
   {
    "id": "dog-button-network",
@@ -235,8 +243,8 @@
  ],
  "summary": {
   "claims": 14,
-  "procedures": 14,
-  "fired_at_least_0.30": 11,
+  "procedures": 16,
+  "fired_at_least_0.30": 13,
   "calibrated_at_most_0.10": 3,
   "negative_claims": 1,
   "verdicts": {"SURVIVES": 7, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 3, "UNDECIDED": 3}
@@ -250,5 +258,5 @@
   "Soffer and Vazquez 2005, Physical Review E 71:057101 (clustering falling with degree as a degree-correlation bias rather than hierarchy)",
   "Wright and Dahlin 2007, Behaviour 144:207-228, doi:10.1163/156853907779947346 (yellow-naped amazon pair duets: sex-specific notes follow a defined order)"
  ],
- "pending": ["dolphin-coercion-test (Bouchard et al. 2026, PNAS)", "whale-clan-marking-test (Hersh et al. 2022, PNAS)", "molerat-dialect-test (Barker et al. 2021, Science)", "magpie-dialect-test (Mason, King and Ridley 2026, Proceedings of the Royal Society B)", "magpie-order-test amendment 1 (the magpie preprint's own in-sample and zero-order permutation procedures)", "marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "parrot-duet-syntax-test amendment 2 (robustness checks)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "delta-rhythm-window-test (Piette et al. 2026, PLoS Biology)"]
+ "pending": ["dolphin-coercion-test (Bouchard et al. 2026, PNAS)", "whale-clan-marking-test (Hersh et al. 2022, PNAS)", "molerat-dialect-test (Barker et al. 2021, Science)", "magpie-dialect-test (Mason, King and Ridley 2026, Proceedings of the Royal Society B)", "marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "parrot-duet-syntax-test amendment 2 (robustness checks)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "delta-rhythm-window-test (Piette et al. 2026, PLoS Biology)"]
 }
