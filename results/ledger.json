@@ -1,9 +1,9 @@
 {
- "version": "calibrated-animal-claims-ledger-5",
- "date": "2026-11-24",
+ "version": "calibrated-animal-claims-ledger-6",
+ "date": "2026-11-25",
  "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
  "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Rows of kind 'negative' are published claims that an effect is absent; for them the ledger gives the calibrated test and its measured power instead of a false-alarm rate. Every number is copied from the named file in the named repository; nothing here is re-computed.",
- "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, rhythm mixtures, unequal button use, file layout) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
+ "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, sessions, rhythm mixtures, unequal button use, file layout) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
  "claims": [
   {
    "id": "chimp-drum",
@@ -215,15 +215,31 @@
    "calibrated_source": "READING-SYNTAX.md",
    "verdict": "SURVIVES",
    "verdict_note": "Registered headline SYNTAX_BEYOND_REPERTOIRE: the duets are ordered, but the published 'rules' measure where duets sit in the file, not call order. Power to one planted weak rule was only 0.105; robustness checks (leave one pair out, repeated duets, position-only null) are queued as AMENDMENT-2."
+  },
+  {
+   "id": "marmoset-second-order",
+   "claim": "Common marmoset call sequences are best described by a second-order Markov model: each call depends on the two calls before it",
+   "paper": "Bosshard, Burkart, Merlo, Cathcart, Townsend and Bickel 2024, Royal Society Open Science 11:240218",
+   "repo": "https://github.com/munimtechnologies/marmoset-order-test",
+   "procedures": [
+    {"id": "marmoset-loo-sequence", "procedure": "Authors' reading of their leave-one-sequence-out cross-validation: order 2 beats order 1 at every smoothing constant (alpha 0.0001 to 1), reproduced on their public file",
+     "world": "H0p: every sequence redrawn at its own length from one pooled first-order chain (no second-order rule)",
+     "worlds": 499, "hits": 0, "rate": 0.0,
+     "source_file": "results/marmoset_results.json", "source_key": "nulls.H0p_pooled_first_order.authors_test_fires"}
+   ],
+   "calibrated": "Real D_best (best order 2 minus best order 1, held-out log-likelihood) 303.20 nats over 5,801 sequences in 120 sessions; 297.35 when whole sessions are held out. Against session-specific first-order worlds the largest D_best was 22.62 (p 0.0020) and with looped chunks 52.40 (p 0.0020, 499 worlds each); the authors' reading fired in 0 of 499 worlds of each of the four nulls; power 1.0 at rho 0.3.",
+   "calibrated_source": "READING-MARMOSET.md",
+   "verdict": "SURVIVES",
+   "verdict_note": "Registered verdict SECOND_ORDER_SURVIVES: not explained by pooling sessions or looping chunks, and the authors' test is well calibrated against both. A position-only explanation (the start padding tells order 2 it is predicting the second call) is not yet excluded; it is registered as AMENDMENT-1-POSITION.md."
   }
  ],
  "summary": {
-  "claims": 13,
-  "procedures": 13,
+  "claims": 14,
+  "procedures": 14,
   "fired_at_least_0.30": 11,
-  "calibrated_at_most_0.10": 2,
+  "calibrated_at_most_0.10": 3,
   "negative_claims": 1,
-  "verdicts": {"SURVIVES": 6, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 3, "UNDECIDED": 3}
+  "verdicts": {"SURVIVES": 7, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 3, "UNDECIDED": 3}
  },
  "prior_art": [
   "Mundry and Sommer 2007, Animal Behaviour, doi:10.1016/j.anbehav.2006.12.028 (discriminant analysis with nonindependent data; permuted DFA)",
@@ -234,5 +250,5 @@
   "Soffer and Vazquez 2005, Physical Review E 71:057101 (clustering falling with degree as a degree-correlation bias rather than hierarchy)",
   "Wright and Dahlin 2007, Behaviour 144:207-228, doi:10.1163/156853907779947346 (yellow-naped amazon pair duets: sex-specific notes follow a defined order)"
  ],
- "pending": ["dolphin-coercion-test (Bouchard et al. 2026, PNAS)", "whale-clan-marking-test (Hersh et al. 2022, PNAS)", "molerat-dialect-test (Barker et al. 2021, Science)", "magpie-dialect-test (Mason, King and Ridley 2026, Proceedings of the Royal Society B)", "magpie-order-test amendment 1 (the magpie preprint's own in-sample and zero-order permutation procedures)", "marmoset-order-test (Bosshard et al. 2024, Royal Society Open Science)", "parrot-duet-syntax-test amendment 2 (robustness checks)"]
+ "pending": ["dolphin-coercion-test (Bouchard et al. 2026, PNAS)", "whale-clan-marking-test (Hersh et al. 2022, PNAS)", "molerat-dialect-test (Barker et al. 2021, Science)", "magpie-dialect-test (Mason, King and Ridley 2026, Proceedings of the Royal Society B)", "magpie-order-test amendment 1 (the magpie preprint's own in-sample and zero-order permutation procedures)", "marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "parrot-duet-syntax-test amendment 2 (robustness checks)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "delta-rhythm-window-test (Piette et al. 2026, PLoS Biology)"]
 }
