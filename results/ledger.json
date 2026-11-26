@@ -1,5 +1,5 @@
 {
- "version": "calibrated-animal-claims-ledger-10",
+ "version": "calibrated-animal-claims-ledger-11",
  "date": "2026-11-26",
  "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
  "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Rows of kind 'negative' are published claims that an effect is absent; for them the ledger gives the calibrated test and its measured power instead of a false-alarm rate. Every number is copied from the named file in the named repository; nothing here is re-computed.",
@@ -219,10 +219,10 @@
      "worlds": 200, "hits": 200, "rate": 1.0,
      "source_file": "results/syntax/syntax_results.json", "source_key": "calibration.naive_false_alarm_S_adj"}
    ],
-   "calibrated": "Adjacent order beyond each duet's own calls (shuffles within duet and sex): 2.2416 bits against 1.8916, p 0.0001, test size 0.030; co-occurrence within 5 calls beyond each pair's repertoire: p 0.0001, size 0.045; 9 ordered call pairs survive Benjamini-Hochberg under the within-duet null. The paper's Table 1 is reproduced (14 of 15 between-type rows to three decimals) as correlations of call-type counts across 10 equal slices of the data file; 16.7% of those pairs stay significant when whole duets are placed in random order.",
-   "calibrated_source": "READING-SYNTAX.md",
+   "calibrated": "Adjacent order beyond each duet's own calls (shuffles within duet and sex): 2.2416 bits against 1.8916, p 0.0001, test size 0.030; co-occurrence within 5 calls beyond each pair's repertoire: p 0.0001, size 0.045; 9 ordered call pairs survive Benjamini-Hochberg under the within-duet null. The paper's Table 1 is reproduced (14 of 15 between-type rows to three decimals) as correlations of call-type counts across 10 equal slices of the data file; 16.7% of those pairs stay significant when whole duets are placed in random order. AMENDMENT-2: the order effect is robust to removing the 2 repeated duets, to leaving out any one of 13 units (12 pairs and the unidentified birds; RW sang 152 of 468 calls), to a position-only null that keeps openers and closers in place (2.2416 against 1.9960) and holds in both directions (female to male 2.6387 against 2.1943; male to female 2.5450 against 2.2956), all p 0.0001; 6 of 6 registered predictions true, Brier 0.109.",
+   "calibrated_source": "READING-SYNTAX.md and READING-ROBUST.md",
    "verdict": "SURVIVES",
-   "verdict_note": "Registered headline SYNTAX_BEYOND_REPERTOIRE: the duets are ordered, but the published 'rules' measure where duets sit in the file, not call order. Power to one planted weak rule was only 0.105; robustness checks (leave one pair out, repeated duets, position-only null) are queued as AMENDMENT-2."
+   "verdict_note": "Registered headline SYNTAX_BEYOND_REPERTOIRE: the duets are ordered, but the published 'rules' measure where duets sit in the file, not call order. Power to one planted weak rule was only 0.105. The registered robustness checks (AMENDMENT-2) all graded ROBUST; only the primary order test was size-calibrated."
   },
   {
    "id": "marmoset-second-order",
@@ -310,7 +310,7 @@
    "calibrated": "Real exponential-minus-composite AICc gap 138.84 on 215,740 syllables (4 birds, 18 bird-days, figshare 4805749 v9); per-bird k-gram surrogates: 100 of 100 fire, 95th percentile 156.17, p_upper 0.4752; bouts reordered within days: 100 of 100 fire, p 0.1485. The registered test is calibrated (0 of 12 in-class and 1 of 12 phrase-machine worlds flagged) and flagged 12 of 12 worlds with planted within-bout recursion, which the composite verdict itself caught in 1 of 12.",
    "calibrated_source": "READING-BF4.md",
    "verdict": "NOT_SUPPORTED",
-   "verdict_note": "Registered grade FINITE_STATE_SUFFICES: on Bengalese finch song the composite verdict is fully reproduced by each bird's finite-memory syntax with independent bouts, so it is no evidence of hierarchy in this species. Hierarchy is not ruled out; one of the paper's four species; house finch, Cassin's vireo, chimpanzee and speech stages are queued."
+   "verdict_note": "Registered grade FINITE_STATE_SUFFICES: on Bengalese finch song the composite verdict is fully reproduced by each bird's finite-memory syntax with independent bouts, so it is no evidence of hierarchy in this species. Hierarchy is not ruled out; one of the paper's four species; house finch, Cassin's vireo, European starling, chimpanzee and speech stages are queued."
   }
  ],
  "graded_without_false_alarm_rate": [
@@ -344,5 +344,5 @@
   "Nakaishi et al., arXiv 2505.04984 (questions the inference from power-law correlations to hierarchy in human language)",
   "Morita et al. 2021, PLoS Computational Biology 17:e1009707 (Bengalese finch song context of about eight syllables, measured with neural networks)"
  ],
- "pending": ["marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "parrot-duet-syntax-test amendment 2 (robustness checks)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "delta-rhythm-window-test (Piette et al. 2026, PLoS Biology)", "animal-tempo-window-test (Amichay, Balasubramanian and Abrams 2026, PLoS Biology)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)", "birdsong-mi-decay-test stages 1, 2, 3, 5 and 6 (house finch, Cassin's vireo, chimpanzee actions, speech)"]
+ "pending": ["marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "delta-rhythm-window-test (Piette et al. 2026, PLoS Biology)", "animal-tempo-window-test (Amichay, Balasubramanian and Abrams 2026, PLoS Biology)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)", "birdsong-mi-decay-test stages 1, 2, 3, 5 and 6 (house finch, Cassin's vireo, chimpanzee actions, speech)", "birdsong-mi-decay-test stage 7 (European starling)"]
 }

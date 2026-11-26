@@ -33,6 +33,9 @@ class TestLedger(unittest.TestCase):
         self.rows = self.d["claims"]
         self.procs = [p for r in self.rows for p in r["procedures"]]
 
+    def test_version(self):
+        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-11")
+
     def test_rows_complete(self):
         ids = [r["id"] for r in self.rows]
         self.assertEqual(len(ids), len(set(ids)))
@@ -99,7 +102,19 @@ class TestLedger(unittest.TestCase):
                           procs["bf-composite-kgram"]["hits"]), (100, 100))
         self.assertEqual((procs["bf-composite-phrase"]["worlds"],
                           procs["bf-composite-phrase"]["hits"]), (12, 11))
-        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-10")
+
+    def test_parrot_row(self):
+        # Version 11: parrot AMENDMENT-2 robustness checks graded (READING-ROBUST.md).
+        row = [r for r in self.rows if r["id"] == "parrot-duet-syntax"][0]
+        self.assertEqual(row["verdict"], "SURVIVES")
+        self.assertIn("READING-ROBUST.md", row["calibrated_source"])
+        for s in ("2.2416 against 1.9960", "2.6387 against 2.1943",
+                  "2.5450 against 2.2956", "152 of 468", "Brier 0.109"):
+            self.assertIn(s, row["calibrated"])
+        self.assertNotIn("queued", row["verdict_note"])
+        pending = " ".join(self.d["pending"])
+        self.assertNotIn("parrot", pending)
+        self.assertIn("stage 7 (European starling)", pending)
 
 
 if __name__ == "__main__":
