@@ -90,6 +90,17 @@ class TestLedger(unittest.TestCase):
         for p in row["procedures"]:
             self.assertEqual(p["worlds"], 5040)
 
+    def test_bengalese_row(self):
+        # Version 10: Bengalese finch MI-decay row (birdsong-mi-decay-test stage 4).
+        row = [r for r in self.rows if r["id"] == "bengalese-mi-hierarchy"][0]
+        self.assertEqual(row["verdict"], "NOT_SUPPORTED")
+        procs = {p["id"]: p for p in row["procedures"]}
+        self.assertEqual((procs["bf-composite-kgram"]["worlds"],
+                          procs["bf-composite-kgram"]["hits"]), (100, 100))
+        self.assertEqual((procs["bf-composite-phrase"]["worlds"],
+                          procs["bf-composite-phrase"]["hits"]), (12, 11))
+        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-10")
+
 
 if __name__ == "__main__":
     unittest.main()
