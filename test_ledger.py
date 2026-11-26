@@ -84,6 +84,12 @@ class TestLedger(unittest.TestCase):
                              sum(1 for r in self.rows if r["verdict"] == v))
         self.assertEqual(sum(s["verdicts"].values()), len(self.rows))
 
+    def test_exact_clan_row(self):
+        # Version 9: the clan Mantel row is an exact enumeration over all 7! relabelings.
+        row = [r for r in self.rows if r["id"] == "whale-clan-marking"][0]
+        for p in row["procedures"]:
+            self.assertEqual(p["worlds"], 5040)
+
 
 if __name__ == "__main__":
     unittest.main()

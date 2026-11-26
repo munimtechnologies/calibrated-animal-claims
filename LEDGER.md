@@ -1,8 +1,8 @@
 # Ledger: calibrated re-tests of headline animal-communication claims
 
-MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22, updated 2026-11-25 (version 8), with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0. The machine-readable version, with the exact source file and key of every number, is [results/ledger.json](results/ledger.json); `python -m unittest -v test_ledger` checks it.
+MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22, updated 2026-11-26 (version 9), with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0. The machine-readable version, with the exact source file and key of every number, is [results/ledger.json](results/ledger.json); `python -m unittest -v test_ledger` checks it.
 
-**What this is.** Each row is a published claim that one of MV2's open projects re-tested with a pre-registered, calibrated test on the authors' own public data. "Published-style procedure" is the published test, or our closest reconstruction of it. "False-alarm rate" is how often that procedure reported the effect in worlds built from the real data with the effect removed but the suspected structure (bouts, days, callers, social groups, recording sessions, rhythm mixtures, unequal button use, pair repertoires, females as units) kept. Claims that an effect is **absent** are listed separately, with the power of the calibrated test.
+**What this is.** Each row is a published claim that one of MV2's open projects re-tested with a pre-registered, calibrated test on the authors' own public data. "Published-style procedure" is the published test, or our closest reconstruction of it. "False-alarm rate" is how often that procedure reported the effect in worlds built from the real data with the effect removed but the suspected structure (bouts, days, callers, social groups, recording sessions, rhythm mixtures, unequal button use, pair repertoires, females as units, few clans) kept. Claims that an effect is **absent** are listed separately, with the power of the calibrated test.
 
 **Selection warning.** We picked these claims because we suspected their tests. The rates say nothing about the field as a whole, and each world embodies one specific confound.
 
@@ -28,8 +28,10 @@ MV2, Munim, Inc. (mv2@munimtech.com). Compiled on 2026-11-22, updated 2026-11-25
 | Marmoset second-order sequences (Bosshard et al. 2024) | order 2 beats order 1 in leave-one-sequence-out cross-validation at every smoothing constant (authors' reading) | 499 | 0 | 0.000 | marmoset-order-test: results/marmoset_results.json |
 | Dolphin avoidance of coercive males (Bouchard et al. 2026) | trial-level interaction test, 34 playbacks as independent (our stand-in for the mixed model) | 19,448 (every labeling of 7 of 17 females) | 1,239 | 0.064 | dolphin-coercion-test: results/dolphin_results.json |
 | Magpie group repertoires (Mason, King and Ridley 2026) | the authors' mixed model and AICc decision, reproduced | 200 (each fledgling given a foreign group's records) | 200 | 1.000 | magpie-dialect-test: results/magpie_results.json |
+| Sperm whale clan marking (Hersh et al. 2022) | the published identity Mantel test, reproduced | 5,040 (every relabeling of the 7 clans) | 252 | 0.050 | whale-clan-marking-test: results/a1/a1_results.json |
+| Sperm whale clan marking (Hersh et al. 2022) | the published declaration: identity p <= 0.05 and non-identity p > 0.05 | 5,040 (every relabeling of the 7 clans) | 230 | 0.046 | whale-clan-marking-test: results/a1/a1_results.json |
 
-14 of 18 procedures reported an effect in at least 30% of worlds that had none; 4 stayed at or below 10%. New in version 8: the dolphin trial-level test was close to its nominal size, so our suspicion that 34 playbacks overstate 17 females was mostly unfounded for that contrast. The magpie group model, by contrast, says "group repertoire predicts" just as firmly when the "group" is one the fledgling never lived in.
+14 of 20 procedures reported an effect in at least 30% of worlds that had none; 6 stayed at or below 10%. New in version 9: the sperm whale clan test is exactly sized, as an exact Mantel test over all relabelings must be. Its problem is not false alarms but what it leaves untested: that identity codas respond to overlap more than other codas do.
 
 ## Negative claims: calibrated test and its power
 
@@ -59,8 +61,9 @@ The paper reported this negative without a significance test or power analysis. 
 | Marmoset second-order sequences | held-out gain of order 2: 303.20 nats (297.35 holding out whole sessions); largest in 499 session first-order worlds 22.62, with looped chunks 52.40; p 0.0020 each; power 1.0 | SURVIVES |
 | Dolphin avoidance of coercive males | exact test over all 19,448 labelings of 7 of 17 females: p 0.0053; no single female or male removes it (max 0.0195, 0.0854); rank version p 0.0855; secondary effects p 0.878 and 0.140 | SURVIVES |
 | Magpie group repertoires | own-group overlap excess 0.1467 against random group assignments, p 0.0124 (size 1 of 200, power 50 of 50); group-specific order p 0.1612 (power 0.14) | SURVIVES |
+| Sperm whale clan marking | identity minus non-identity difference over all 5,040 relabelings: D -0.4223, p 0.0911; identity trend p <= 0.05 in 2 of 7 leave-one-clan-out sets; robust to sampling effort (partial r -0.5742, p 0.0165); within-clan emphasis circular (leave-one-cell-out p 0.1099; typicality placebo p 0.0356) | UNDECIDED |
 
-Verdicts: 9 SURVIVES, 1 SURVIVES_IN_PART, 3 NOT_SUPPORTED, 3 UNDECIDED.
+Verdicts: 9 SURVIVES, 1 SURVIVES_IN_PART, 3 NOT_SUPPORTED, 4 UNDECIDED.
 
 ## Graded without a false-alarm rate
 
@@ -74,7 +77,7 @@ No false-alarm rate of the published procedure was registered for this test, so 
 
 Unsafe tests were the rule in this set, but most of the effects they reported were real anyway. Of the thirteen claims a calibrated test could decide, ten held in full or in part, including the one negative claim (hyena clans). Three failed. The chimpanzee additive pairs failed because their criterion cannot tell "A and B at once" from "sometimes A, sometimes B". The magpie second-order claim failed at the level of sequence types, and both of the preprint's own procedures, rebuilt from its Methods, would have reported it anyway. The marmoset second-order claim is the mirror image: its cross-validated test never fired in 1,996 worlds without second-order rules. The soundboard dogs' network evidence failed because the comparison graphs give every button the same chance of use.
 
-The parrot duets showed a third case, and version 8 adds a second one: **the effect is real but the published evidence does not measure it.** Magpie fledglings do share more of their own group's sequence types than other groups' (p 0.0124 under a calibrated test), but the published mixed model reports the same "group repertoire predicts" result in all 200 worlds where each fledgling is paired with a foreign group, because it has no term for how common each sequence type is. The dolphin result is the plain case: we expected the coercion effect to rest on one female, and it does not; it holds with the 17 females as units (p 0.0053), though it depends on a few long avoidances and the two secondary effects do not hold at that level. Three claims stay undecided: two because our own registered test failed its calibration (the sperm whale coarticulation amendment is now calibrated but underpowered), one because the public data are too thin.
+The parrot duets and the magpie group repertoires show a third case: **the effect is real but the published evidence does not measure it.** The dolphin result is the plain case: we expected the coercion effect to rest on one female, and it does not. Version 9 adds a fourth kind: **a correctly sized test of the wrong comparison.** The sperm whale clan Mantel test is exact and reproduces to four decimals, and the identity-coda trend survives a sampling-effort control, but symbolic marking needs identity codas to respond to overlap more than other codas, and that difference (p 0.091 on 7 clans) was never tested. A within-clan test we added first seemed to support marking and turned out to be circular. Four claims stay undecided: two because our own registered test failed its calibration (the sperm whale coarticulation amendment is now calibrated but underpowered), and two because the public data are too thin (elephant names, sperm whale clans).
 
 ## Prior art
 
@@ -82,4 +85,4 @@ Pooling and pseudoreplication in animal-communication statistics are well docume
 
 ## Pending
 
-whale-clan-marking-test, amendment 1 of marmoset-order-test (position), amendment 2 of parrot-duet-syntax-test (robustness checks), and the tests of chimpanzee raspberry conventions, the zebra finch semantic magnet, shared human-animal taste in sounds, the 'universal' delta rhythm of animal calls, supra-regular recursion in primate call sequences and the power of the birdsong vocal-learning comparison are pre-registered and waiting for compute. Each will be added when graded.
+Amendment 1 of marmoset-order-test (position), amendment 2 of parrot-duet-syntax-test (robustness checks), and the tests of chimpanzee raspberry conventions, the zebra finch semantic magnet, shared human-animal taste in sounds, the 'universal' delta rhythm of animal calls, supra-regular recursion in primate call sequences and the power of the birdsong vocal-learning comparison are pre-registered and waiting for compute. Each will be added when graded.

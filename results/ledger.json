@@ -1,9 +1,9 @@
 {
- "version": "calibrated-animal-claims-ledger-8",
- "date": "2026-11-25",
+ "version": "calibrated-animal-claims-ledger-9",
+ "date": "2026-11-26",
  "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
  "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Rows of kind 'negative' are published claims that an effect is absent; for them the ledger gives the calibrated test and its measured power instead of a false-alarm rate. Every number is copied from the named file in the named repository; nothing here is re-computed.",
- "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, sessions, rhythm mixtures, unequal button use, file layout, females as units) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
+ "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, sessions, rhythm mixtures, unequal button use, file layout, females as units, few clans) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
  "claims": [
   {
    "id": "chimp-drum",
@@ -271,6 +271,26 @@
    "calibrated_source": "READING-MAGPIE.md",
    "verdict": "SURVIVES",
    "verdict_note": "Registered reading OWN_GROUP_EXCESS: fledglings do match their own group. But the published decision reported 'group repertoire predicts' in 200 of 200 worlds with a foreign group's records, so the published evidence does not measure it; group-specific call order is untested with power (0.14)."
+  },
+  {
+   "id": "whale-clan-marking",
+   "claim": "Pacific sperm whale clans' identity codas become less alike the more two clans share ocean, while their other codas do not (symbolic marking of clan identity)",
+   "paper": "Hersh et al. 2022, PNAS 119:e2201692119",
+   "repo": "https://github.com/munimtechnologies/whale-clan-marking-test",
+   "procedures": [
+    {"id": "clan-mantel-exact", "procedure": "Published identity Mantel test of between-clan identity-coda similarity on spatial overlap, one-tailed p <= 0.05 (authors' Figure 4 values, reproduced: r -0.4986, exact p 0.0409)",
+     "world": "Every relabeling of the 7 clans in the overlap matrix (no link between overlap and coda similarity; all 5,040, exact)",
+     "worlds": 5040, "hits": 252, "rate": 0.05,
+     "source_file": "results/a1/a1_results.json", "source_key": "A5.hits_id"},
+    {"id": "clan-declaration", "procedure": "Published declaration: identity Mantel p <= 0.05 and non-identity Mantel p > 0.05",
+     "world": "Every relabeling of the 7 clans, as above (all 5,040, exact)",
+     "worlds": 5040, "hits": 230, "rate": 0.04563492063492063,
+     "source_file": "results/a1/a1_results.json", "source_key": "A5.hits_declaration"}
+   ],
+   "calibrated": "Exact test of the identity minus non-identity difference over all 5,040 relabelings: D -0.4223, p 0.0911; leaving one clan out, the identity trend keeps p <= 0.05 in 2 of 7 sets. With the authors' similarity, the trend survives a sampling-effort control (partial r -0.5742, p 0.0165) and holds at p <= 0.05 in 5 of 9 overlap definitions. A within-clan test (identity-coda share higher where clans meet, 0.117, p 0.0401) was circular: with identity types re-derived without the scored region, 0.0559, p 0.1099, and a typicality placebo fires the same test (p 0.0356).",
+   "calibrated_source": "READING-MARKING.md and READING-A1.md",
+   "verdict": "UNDECIDED",
+   "verdict_note": "Registered verdict ID_TREND_WITHOUT_CONTRAST; post hoc amendment 1 EMPHASIS_LOST_UNDER_LOCO. The published test is exactly sized and the trend is robust to sampling effort, but 7 clans cannot show that the effect is specific to identity codas, and the one within-clan test that seemed to support marking was circular."
   }
  ],
  "graded_without_false_alarm_rate": [
@@ -286,12 +306,12 @@
   }
  ],
  "summary": {
-  "claims": 16,
-  "procedures": 18,
+  "claims": 17,
+  "procedures": 20,
   "fired_at_least_0.30": 14,
-  "calibrated_at_most_0.10": 4,
+  "calibrated_at_most_0.10": 6,
   "negative_claims": 1,
-  "verdicts": {"SURVIVES": 9, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 3, "UNDECIDED": 3}
+  "verdicts": {"SURVIVES": 9, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 3, "UNDECIDED": 4}
  },
  "prior_art": [
   "Mundry and Sommer 2007, Animal Behaviour, doi:10.1016/j.anbehav.2006.12.028 (discriminant analysis with nonindependent data; permuted DFA)",
@@ -302,5 +322,5 @@
   "Soffer and Vazquez 2005, Physical Review E 71:057101 (clustering falling with degree as a degree-correlation bias rather than hierarchy)",
   "Wright and Dahlin 2007, Behaviour 144:207-228, doi:10.1163/156853907779947346 (yellow-naped amazon pair duets: sex-specific notes follow a defined order)"
  ],
- "pending": ["whale-clan-marking-test (Hersh et al. 2022, PNAS)", "marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "parrot-duet-syntax-test amendment 2 (robustness checks)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "delta-rhythm-window-test (Piette et al. 2026, PLoS Biology)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)"]
+ "pending": ["marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "parrot-duet-syntax-test amendment 2 (robustness checks)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "delta-rhythm-window-test (Piette et al. 2026, PLoS Biology)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)"]
 }
