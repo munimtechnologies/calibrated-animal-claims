@@ -14,6 +14,7 @@ import unittest
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PATH = os.path.join(HERE, "results", "ledger.json")
+MD_PATH = os.path.join(HERE, "LEDGER.md")
 VERDICTS = ("SURVIVES", "SURVIVES_IN_PART", "NOT_SUPPORTED", "UNDECIDED")
 ROW_KEYS = ("id", "claim", "paper", "repo", "procedures", "calibrated",
             "calibrated_source", "verdict", "verdict_note")
@@ -36,7 +37,10 @@ class TestLedger(unittest.TestCase):
         self.procs = [p for r in self.rows for p in r["procedures"]]
 
     def test_version(self):
-        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-12")
+        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-13")
+        if os.path.exists(MD_PATH):
+            with open(MD_PATH, encoding="utf-8") as f:
+                self.assertIn("(version 13)", f.read())
 
     def test_rows_complete(self):
         ids = [r["id"] for r in self.rows]
@@ -160,9 +164,27 @@ class TestLedger(unittest.TestCase):
         self.assertIn("PREFERRED_TEMPO_BEYOND_WINDOW", row["verdict_note"])
         pending = " ".join(self.d["pending"])
         self.assertNotIn("animal-tempo-window-test", pending)
-        self.assertIn("delta-rhythm-window-test", pending)
         self.assertIn("stage 8", pending)
         self.assertNotIn("stages 1,", pending)
+
+    def test_delta_rhythm_row(self):
+        # Version 13: delta-rhythm-window-test graded (READING-RHYTHM.md, job delta-rhythm-v1).
+        row = [r for r in self.rows if r["id"] == "delta-rhythm-optimum"][0]
+        self.assertEqual(row["verdict"], "SURVIVES")
+        self.assertEqual(row["calibrated_source"], "READING-RHYTHM.md")
+        self.assertEqual(row["repo"], "https://github.com/munimtechnologies/delta-rhythm-window-test")
+        procs = {p["id"]: p for p in row["procedures"]}
+        p = procs["rhythm-ou-aic-window"]
+        self.assertEqual((p["worlds"], p["hits"]), (400, 146))
+        self.assertEqual(p["source_file"], "results/rhythm/results.json")
+        self.assertIn("share_BBM_null_sims_OU_beats_BM_by_AIC", p["source_key"])
+        for s in ("28.6538 against 28.4107", "6.9320", "2.8186", "p 0.0025", "power 0.995",
+                  "3.123 Hz", "0.0910 tree heights", "p 0.0050", "Brier 0.1486"):
+            self.assertIn(s, row["calibrated"])
+        self.assertIn("OPTIMUM_SURVIVES_WINDOW", row["verdict_note"])
+        pending = " ".join(self.d["pending"])
+        self.assertNotIn("delta-rhythm-window-test", pending)
+        self.assertNotIn("Piette", pending)
 
 
 if __name__ == "__main__":
