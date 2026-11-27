@@ -1,9 +1,9 @@
 {
- "version": "calibrated-animal-claims-ledger-11",
- "date": "2026-11-26",
+ "version": "calibrated-animal-claims-ledger-12",
+ "date": "2026-11-27",
  "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
  "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Rows of kind 'negative' are published claims that an effect is absent; for them the ledger gives the calibrated test and its measured power instead of a false-alarm rate. Every number is copied from the named file in the named repository; nothing here is re-computed.",
- "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, sessions, rhythm mixtures, unequal button use, file layout, females as units, few clans, finite-memory syntax) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
+ "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, sessions, rhythm mixtures, unequal button use, file layout, females as units, few clans, finite-memory syntax, the measurable tempo window) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
  "claims": [
   {
    "id": "chimp-drum",
@@ -305,12 +305,20 @@
     {"id": "bf-composite-phrase", "procedure": "Same published verdict, in the registered self-check",
      "world": "S1: simulated per-bird phrase machines (fixed phrases sung in runs, sparse first-order phrase transitions; finite-state)",
      "worlds": 12, "hits": 11, "rate": 0.9166666666666666,
-     "source_file": "results/stage4/selfcheck4.json", "source_key": "summary.S1.t4a_fire_rate (times summary.S1.worlds)"}
+     "source_file": "results/stage4/selfcheck4.json", "source_key": "summary.S1.t4a_fire_rate (times summary.S1.worlds)"},
+    {"id": "mi-composite-pooled-sim", "procedure": "Same published verdict, in the registered stage-1 calibration of the statistic (seed 20261124)",
+     "world": "W2: 30 simulated birds, each with its own finite-state Markov chain, pooled as in the published designs (no hierarchy)",
+     "worlds": 50, "hits": 46, "rate": 0.92,
+     "source_file": "results/stage1/calibration.json", "source_key": "summary.W2_pooled_individuals.fires_strong"},
+    {"id": "mi-composite-bouts-sim", "procedure": "Same published verdict, in the registered stage-1 calibration of the statistic (seed 20261124)",
+     "world": "W3: simulated days built from persistent bouts of finite-state song types (no hierarchy)",
+     "worlds": 50, "hits": 50, "rate": 1.0,
+     "source_file": "results/stage1/calibration.json", "source_key": "summary.W3_bout_song_types.fires_strong"}
    ],
-   "calibrated": "Real exponential-minus-composite AICc gap 138.84 on 215,740 syllables (4 birds, 18 bird-days, figshare 4805749 v9); per-bird k-gram surrogates: 100 of 100 fire, 95th percentile 156.17, p_upper 0.4752; bouts reordered within days: 100 of 100 fire, p 0.1485. The registered test is calibrated (0 of 12 in-class and 1 of 12 phrase-machine worlds flagged) and flagged 12 of 12 worlds with planted within-bout recursion, which the composite verdict itself caught in 1 of 12.",
-   "calibrated_source": "READING-BF4.md",
+   "calibrated": "Real exponential-minus-composite AICc gap 138.84 on 215,740 syllables (4 birds, 18 bird-days, figshare 4805749 v9); per-bird k-gram surrogates: 100 of 100 fire, 95th percentile 156.17, p_upper 0.4752; bouts reordered within days: 100 of 100 fire, p 0.1485. The registered test is calibrated (0 of 12 in-class and 1 of 12 phrase-machine worlds flagged) and flagged 12 of 12 worlds with planted within-bout recursion, which the composite verdict itself caught in 1 of 12. Stage-1 calibration of the composite verdict (300 simulated worlds): quiet on a plain Markov chain (3 of 50), one bird with two timescales (4 of 50) and a house-finch design (0 of 50), but it caught the Lin-Tegmark recursive positive control in only 2 of 50 (detection 0.04); registered grade UNCALIBRATED_MULTI_TIMESCALE, Brier 0.212. A pure power law won in 28 of 50 recursive worlds and 0 of 250 finite-state ones; that contrast was not registered and is tested in stage 8.",
+   "calibrated_source": "READING-BF4.md and READING-STAGE1.md",
    "verdict": "NOT_SUPPORTED",
-   "verdict_note": "Registered grade FINITE_STATE_SUFFICES: on Bengalese finch song the composite verdict is fully reproduced by each bird's finite-memory syntax with independent bouts, so it is no evidence of hierarchy in this species. Hierarchy is not ruled out; one of the paper's four species; house finch, Cassin's vireo, European starling, chimpanzee and speech stages are queued."
+   "verdict_note": "Registered grade FINITE_STATE_SUFFICES: on Bengalese finch song the composite verdict is fully reproduced by each bird's finite-memory syntax with independent bouts, so it is no evidence of hierarchy in this species. Hierarchy is not ruled out; one of the paper's four species; house finch, Cassin's vireo, European starling, chimpanzee and speech stages are queued. The stage-1 calibration shows the verdict fires on pooled birds and persistent bouts and misses a standard recursive model."
   }
  ],
  "graded_without_false_alarm_rate": [
@@ -323,12 +331,22 @@
    "calibrated_source": "READING-STEP1.md",
    "verdict": "SURVIVES",
    "verdict_note": "Registered verdict COLONY_SIGNATURE_TRANSFERS_ACROSS_DAYS, weakly and for 2 colonies. No false-alarm rate of the published procedure was registered, so the row is not in the claims table."
+  },
+  {
+   "id": "animal-delta-tempo",
+   "claim": "Animal communication tempos concentrate in the 0.5-4 Hz neural delta band (paper Fig. 2: a roughly unimodal distribution with median 3.45 Hz, reported without a test against any null distribution; popularly reported as the whole animal kingdom communicating at the same tempo)",
+   "paper": "Amichay, Balasubramanian and Abrams 2026, PLoS Biology 24(4):e3003735",
+   "repo": "https://github.com/munimtechnologies/animal-tempo-window-test",
+   "calibrated": "Window-only null (tempos spread evenly in log frequency over the measurable window, W 73.4 s from the click times, U 15.4952 Hz) on 40 isochronous recordings from the authors' click files: delta-band share 0.5500 (22 of 40) against 0.3899, T1 p_upper 0.0118 (20,000 parametric bootstraps); KS 0.3997 against a null mean of 0.1342, p 0.00005; holds with U fixed at 20 Hz (p 0.0165) and 30 Hz (p 0.0067); T1 power 1.000 against a delta-preferring world and 0.9075 against the authors' fit. Median 3.3517 Hz (reproduced). Five animal groups do not differ (Kruskal-Wallis H 6.4735, permutation p 0.1617). Brier 0.2767 over 12 forecasts.",
+   "calibrated_source": "READING-TEMPO.md",
+   "verdict": "SURVIVES",
+   "verdict_note": "Registered headline PREFERRED_TEMPO_BEYOND_WINDOW: the delta band holds more tempos than the measurable window alone gives, so our hypothesis that the window manufactures the concentration was not supported. Only this one null was tested (species selection is not), the median is about 3.4 Hz rather than 2 Hz, and no group difference was found. No false-alarm rate of a published procedure applies (the paper reports no test), so the row is not in the claims table."
   }
  ],
  "summary": {
   "claims": 18,
-  "procedures": 22,
-  "fired_at_least_0.30": 16,
+  "procedures": 24,
+  "fired_at_least_0.30": 18,
   "calibrated_at_most_0.10": 6,
   "negative_claims": 1,
   "verdicts": {"SURVIVES": 9, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 4, "UNDECIDED": 4}
@@ -342,7 +360,8 @@
   "Soffer and Vazquez 2005, Physical Review E 71:057101 (clustering falling with degree as a degree-correlation bias rather than hierarchy)",
   "Wright and Dahlin 2007, Behaviour 144:207-228, doi:10.1163/156853907779947346 (yellow-naped amazon pair duets: sex-specific notes follow a defined order)",
   "Nakaishi et al., arXiv 2505.04984 (questions the inference from power-law correlations to hierarchy in human language)",
-  "Morita et al. 2021, PLoS Computational Biology 17:e1009707 (Bengalese finch song context of about eight syllables, measured with neural networks)"
+  "Morita et al. 2021, PLoS Computational Biology 17:e1009707 (Bengalese finch song context of about eight syllables, measured with neural networks)",
+  "Lin and Tegmark 2017, Entropy 19:299 (Markov processes give exponentially decaying mutual information; the recursive model used as the positive control)"
  ],
- "pending": ["marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "delta-rhythm-window-test (Piette et al. 2026, PLoS Biology)", "animal-tempo-window-test (Amichay, Balasubramanian and Abrams 2026, PLoS Biology)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)", "birdsong-mi-decay-test stages 1, 2, 3, 5 and 6 (house finch, Cassin's vireo, chimpanzee actions, speech)", "birdsong-mi-decay-test stage 7 (European starling)"]
+ "pending": ["marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "delta-rhythm-window-test (Piette et al. 2026, PLoS Biology)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)", "birdsong-mi-decay-test stages 2, 3, 5 and 6 (house finch, chimpanzee actions, Cassin's vireo, speech)", "birdsong-mi-decay-test stage 7 (European starling)", "birdsong-mi-decay-test stage 8 (whether a pure power law is a calibrated signature of hierarchy, 650 fresh simulated worlds)"]
 }

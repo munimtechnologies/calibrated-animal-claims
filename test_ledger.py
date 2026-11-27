@@ -20,6 +20,8 @@ ROW_KEYS = ("id", "claim", "paper", "repo", "procedures", "calibrated",
 PROC_KEYS = ("id", "procedure", "world", "worlds", "hits", "rate",
              "source_file", "source_key")
 POWER_KEYS = ("planted", "worlds", "hits", "rate", "source_file", "source_key")
+NOFA_KEYS = ("id", "claim", "paper", "repo", "calibrated", "calibrated_source",
+             "verdict", "verdict_note")
 
 
 def load():
@@ -34,7 +36,7 @@ class TestLedger(unittest.TestCase):
         self.procs = [p for r in self.rows for p in r["procedures"]]
 
     def test_version(self):
-        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-11")
+        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-12")
 
     def test_rows_complete(self):
         ids = [r["id"] for r in self.rows]
@@ -103,6 +105,24 @@ class TestLedger(unittest.TestCase):
         self.assertEqual((procs["bf-composite-phrase"]["worlds"],
                           procs["bf-composite-phrase"]["hits"]), (12, 11))
 
+    def test_stage1_calibration_rows(self):
+        # Version 12: stage-1 calibration of the composite verdict (READING-STAGE1.md,
+        # results/stage1/calibration.json, keys summary.W2/W3 ... fires_strong).
+        row = [r for r in self.rows if r["id"] == "bengalese-mi-hierarchy"][0]
+        procs = {p["id"]: p for p in row["procedures"]}
+        w2 = procs["mi-composite-pooled-sim"]
+        w3 = procs["mi-composite-bouts-sim"]
+        self.assertEqual((w2["worlds"], w2["hits"]), (50, 46))
+        self.assertEqual((w3["worlds"], w3["hits"]), (50, 50))
+        for p in (w2, w3):
+            self.assertEqual(p["source_file"], "results/stage1/calibration.json")
+            self.assertTrue(p["source_key"].startswith("summary.W"))
+            self.assertTrue(p["source_key"].endswith(".fires_strong"))
+        self.assertIn("READING-STAGE1.md", row["calibrated_source"])
+        for s in ("2 of 50 (detection 0.04)", "UNCALIBRATED_MULTI_TIMESCALE",
+                  "Brier 0.212", "28 of 50 recursive worlds and 0 of 250"):
+            self.assertIn(s, row["calibrated"])
+
     def test_parrot_row(self):
         # Version 11: parrot AMENDMENT-2 robustness checks graded (READING-ROBUST.md).
         row = [r for r in self.rows if r["id"] == "parrot-duet-syntax"][0]
@@ -115,6 +135,34 @@ class TestLedger(unittest.TestCase):
         pending = " ".join(self.d["pending"])
         self.assertNotIn("parrot", pending)
         self.assertIn("stage 7 (European starling)", pending)
+
+    def test_graded_without_false_alarm_rate(self):
+        rows = self.d["graded_without_false_alarm_rate"]
+        ids = [r["id"] for r in rows]
+        self.assertEqual(len(ids), len(set(ids)))
+        claim_ids = {r["id"] for r in self.rows}
+        for r in rows:
+            for k in NOFA_KEYS:
+                self.assertIn(k, r, r.get("id"))
+            self.assertIn(r["verdict"], VERDICTS)
+            self.assertNotIn(r["id"], claim_ids)
+            self.assertTrue(r["repo"].startswith("https://github.com/munimtechnologies/"))
+
+    def test_tempo_row(self):
+        # Version 12: delta-band tempo test graded (animal-tempo-window-test READING-TEMPO.md).
+        row = [r for r in self.d["graded_without_false_alarm_rate"]
+               if r["id"] == "animal-delta-tempo"][0]
+        self.assertEqual(row["verdict"], "SURVIVES")
+        self.assertEqual(row["calibrated_source"], "READING-TEMPO.md")
+        for s in ("0.5500 (22 of 40) against 0.3899", "p_upper 0.0118", "W 73.4 s",
+                  "p 0.1617", "Brier 0.2767", "3.3517 Hz"):
+            self.assertIn(s, row["calibrated"])
+        self.assertIn("PREFERRED_TEMPO_BEYOND_WINDOW", row["verdict_note"])
+        pending = " ".join(self.d["pending"])
+        self.assertNotIn("animal-tempo-window-test", pending)
+        self.assertIn("delta-rhythm-window-test", pending)
+        self.assertIn("stage 8", pending)
+        self.assertNotIn("stages 1,", pending)
 
 
 if __name__ == "__main__":
