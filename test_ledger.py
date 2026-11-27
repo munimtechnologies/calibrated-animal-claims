@@ -37,10 +37,10 @@ class TestLedger(unittest.TestCase):
         self.procs = [p for r in self.rows for p in r["procedures"]]
 
     def test_version(self):
-        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-13")
+        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-14")
         if os.path.exists(MD_PATH):
             with open(MD_PATH, encoding="utf-8") as f:
-                self.assertIn("(version 13)", f.read())
+                self.assertIn("(version 14)", f.read())
 
     def test_rows_complete(self):
         ids = [r["id"] for r in self.rows]
@@ -127,6 +127,28 @@ class TestLedger(unittest.TestCase):
                   "Brier 0.212", "28 of 50 recursive worlds and 0 of 250"):
             self.assertIn(s, row["calibrated"])
 
+    def test_stage8_rows(self):
+        # Version 14: stage-8 calibration (READING-STAGE8.md, results/stage8/stage8.json).
+        row = [r for r in self.rows if r["id"] == "bengalese-mi-hierarchy"][0]
+        procs = {p["id"]: p for p in row["procedures"]}
+        l1 = procs["mi-composite-heavytail-sim"]
+        self.assertEqual((l1["worlds"], l1["hits"]), (50, 50))
+        self.assertEqual(l1["source_file"], "results/stage8/stage8.json")
+        self.assertEqual(l1["source_key"], "summary.L1_heavy_tailed_bouts.composite_strong_fires")
+        self.assertIn("READING-STAGE8.md", row["calibrated_source"])
+        for s in ("146 of 350 finite-state worlds", "39 of 250 recursive ones",
+                  "5 of 350 finite-state", "133 of 250 recursive", "graded MIXED",
+                  "3 of 50 (0.06, limit 0.05)", "Brier 0.2831"):
+            self.assertIn(s, row["calibrated"])
+        self.assertIn("Stage 8 graded MIXED", row["verdict_note"])
+        pending = " ".join(self.d["pending"])
+        self.assertNotIn("stage 8", pending)
+        if os.path.exists(MD_PATH):
+            with open(MD_PATH, encoding="utf-8") as f:
+                md = f.read()
+            self.assertIn("20 of 26 procedures", md)
+            self.assertIn("results/stage8/stage8.json", md)
+
     def test_parrot_row(self):
         # Version 11: parrot AMENDMENT-2 robustness checks graded (READING-ROBUST.md).
         row = [r for r in self.rows if r["id"] == "parrot-duet-syntax"][0]
@@ -164,7 +186,7 @@ class TestLedger(unittest.TestCase):
         self.assertIn("PREFERRED_TEMPO_BEYOND_WINDOW", row["verdict_note"])
         pending = " ".join(self.d["pending"])
         self.assertNotIn("animal-tempo-window-test", pending)
-        self.assertIn("stage 8", pending)
+        self.assertIn("stage 7 (European starling)", pending)
         self.assertNotIn("stages 1,", pending)
 
     def test_delta_rhythm_row(self):

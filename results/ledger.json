@@ -1,5 +1,5 @@
 {
- "version": "calibrated-animal-claims-ledger-13",
+ "version": "calibrated-animal-claims-ledger-14",
  "date": "2026-11-27",
  "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
  "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Rows of kind 'negative' are published claims that an effect is absent; for them the ledger gives the calibrated test and its measured power instead of a false-alarm rate. Every number is copied from the named file in the named repository; nothing here is re-computed.",
@@ -313,12 +313,16 @@
     {"id": "mi-composite-bouts-sim", "procedure": "Same published verdict, in the registered stage-1 calibration of the statistic (seed 20261124)",
      "world": "W3: simulated days built from persistent bouts of finite-state song types (no hierarchy)",
      "worlds": 50, "hits": 50, "rate": 1.0,
-     "source_file": "results/stage1/calibration.json", "source_key": "summary.W3_bout_song_types.fires_strong"}
+     "source_file": "results/stage1/calibration.json", "source_key": "summary.W3_bout_song_types.fires_strong"},
+    {"id": "mi-composite-heavytail-sim", "procedure": "Same published verdict, in the registered stage-8 calibration (seed 20261127, fresh worlds)",
+     "world": "L1: 3 song types with their own 6-syllable chains, bout lengths Pareto-distributed (alpha 1.2, minimum 20, cap 4,000), type changing at every bout end, 30 days of 4,000 syllables (long memory, no hierarchy)",
+     "worlds": 50, "hits": 50, "rate": 1.0,
+     "source_file": "results/stage8/stage8.json", "source_key": "summary.L1_heavy_tailed_bouts.composite_strong_fires"}
    ],
-   "calibrated": "Real exponential-minus-composite AICc gap 138.84 on 215,740 syllables (4 birds, 18 bird-days, figshare 4805749 v9); per-bird k-gram surrogates: 100 of 100 fire, 95th percentile 156.17, p_upper 0.4752; bouts reordered within days: 100 of 100 fire, p 0.1485. The registered test is calibrated (0 of 12 in-class and 1 of 12 phrase-machine worlds flagged) and flagged 12 of 12 worlds with planted within-bout recursion, which the composite verdict itself caught in 1 of 12. Stage-1 calibration of the composite verdict (300 simulated worlds): quiet on a plain Markov chain (3 of 50), one bird with two timescales (4 of 50) and a house-finch design (0 of 50), but it caught the Lin-Tegmark recursive positive control in only 2 of 50 (detection 0.04); registered grade UNCALIBRATED_MULTI_TIMESCALE, Brier 0.212. A pure power law won in 28 of 50 recursive worlds and 0 of 250 finite-state ones; that contrast was not registered and is tested in stage 8.",
-   "calibrated_source": "READING-BF4.md and READING-STAGE1.md",
+   "calibrated": "Real exponential-minus-composite AICc gap 138.84 on 215,740 syllables (4 birds, 18 bird-days, figshare 4805749 v9); per-bird k-gram surrogates: 100 of 100 fire, 95th percentile 156.17, p_upper 0.4752; bouts reordered within days: 100 of 100 fire, p 0.1485. The registered test is calibrated (0 of 12 in-class and 1 of 12 phrase-machine worlds flagged) and flagged 12 of 12 worlds with planted within-bout recursion, which the composite verdict itself caught in 1 of 12. Stage-1 calibration of the composite verdict (300 simulated worlds): quiet on a plain Markov chain (3 of 50), one bird with two timescales (4 of 50) and a house-finch design (0 of 50), but it caught the Lin-Tegmark recursive positive control in only 2 of 50 (detection 0.04); registered grade UNCALIBRATED_MULTI_TIMESCALE, Brier 0.212. A pure power law won in 28 of 50 recursive worlds and 0 of 250 finite-state ones; that contrast was not registered and is tested in stage 8. Stage 8 (650 fresh simulated worlds, seed 20261127): the composite verdict fired in 146 of 350 finite-state worlds and 50 of 50 heavy-tailed-bout worlds but in 39 of 250 recursive ones; the registered alternative C8 (a pure power law has the lowest AICc) fired in 5 of 350 finite-state, 0 of 50 heavy-tailed and 133 of 250 recursive worlds (median over five recursive kinds 0.54), graded MIXED because pooled finite-state birds fired in 3 of 50 (0.06, limit 0.05); Brier 0.2831.",
+   "calibrated_source": "READING-BF4.md, READING-STAGE1.md and READING-STAGE8.md",
    "verdict": "NOT_SUPPORTED",
-   "verdict_note": "Registered grade FINITE_STATE_SUFFICES: on Bengalese finch song the composite verdict is fully reproduced by each bird's finite-memory syntax with independent bouts, so it is no evidence of hierarchy in this species. Hierarchy is not ruled out; one of the paper's four species; house finch, Cassin's vireo, European starling, chimpanzee and speech stages are queued. The stage-1 calibration shows the verdict fires on pooled birds and persistent bouts and misses a standard recursive model."
+   "verdict_note": "Registered grade FINITE_STATE_SUFFICES: on Bengalese finch song the composite verdict is fully reproduced by each bird's finite-memory syntax with independent bouts, so it is no evidence of hierarchy in this species. Hierarchy is not ruled out; one of the paper's four species; house finch, Cassin's vireo, European starling, chimpanzee and speech stages are queued. The stage-1 and stage-8 calibrations show the verdict fires on pooled birds, persistent bouts and heavy-tailed bouts and mostly misses recursive models. Stage 8 graded MIXED: a pure power law nearly separates recursive from finite-state simulations but missed the registered false-alarm limit by one world, so it is not yet a calibrated signature."
   },
   {
    "id": "delta-rhythm-optimum",
@@ -361,8 +365,8 @@
  ],
  "summary": {
   "claims": 19,
-  "procedures": 25,
-  "fired_at_least_0.30": 19,
+  "procedures": 26,
+  "fired_at_least_0.30": 20,
   "calibrated_at_most_0.10": 6,
   "negative_claims": 1,
   "verdicts": {"SURVIVES": 10, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 4, "UNDECIDED": 4}
@@ -380,5 +384,5 @@
   "Lin and Tegmark 2017, Entropy 19:299 (Markov processes give exponentially decaying mutual information; the recursive model used as the positive control)",
   "Boucher and Demery 2016, Systematic Biology 65:651 (bounded Brownian motion can be mistaken for Ornstein-Uhlenbeck selection; the window model used for the rhythm row)"
  ],
- "pending": ["marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)", "birdsong-mi-decay-test stages 2, 3, 5 and 6 (house finch, chimpanzee actions, Cassin's vireo, speech)", "birdsong-mi-decay-test stage 7 (European starling)", "birdsong-mi-decay-test stage 8 (whether a pure power law is a calibrated signature of hierarchy, 650 fresh simulated worlds)"]
+ "pending": ["marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)", "birdsong-mi-decay-test stages 2, 3, 5 and 6 (house finch, chimpanzee actions, Cassin's vireo, speech)", "birdsong-mi-decay-test stage 7 (European starling)"]
 }
