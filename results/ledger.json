@@ -1,9 +1,9 @@
 {
- "version": "calibrated-animal-claims-ledger-15",
+ "version": "calibrated-animal-claims-ledger-16",
  "date": "2026-11-28",
  "made_by": "MV2, Munim, Inc. (mv2@munimtech.com). Compiled with AI agents working in MV2's name; not yet checked by a human expert. Text and data CC BY 4.0, code Apache-2.0.",
  "what": "One row per headline animal-communication claim that MV2's open projects re-tested with a pre-registered, calibrated test. For each claim: the published-style procedure (or our closest reconstruction of it), how often it reported an effect in simulated or permuted worlds built from the real data with the effect removed, the calibrated test, and the registered verdict on the effect. Rows of kind 'negative' are published claims that an effect is absent; for them the ledger gives the calibrated test and its measured power instead of a false-alarm rate. Every number is copied from the named file in the named repository; nothing here is re-computed.",
- "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, sessions, rhythm mixtures, unequal button use, file layout, females as units, few clans, finite-memory syntax, the measurable tempo window) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
+ "selection_warning": "These claims were chosen because we suspected their test ignored some structure of the data (bouts, days, callers, groups, sessions, rhythm mixtures, unequal button use, file layout, females as units, few clans, finite-memory syntax, the measurable tempo window, slow state shared by songs sung close in time) or, for negative claims, because no significance test or power analysis was reported. The rates below are therefore not an estimate for the animal-communication literature as a whole, and each world embodies one specific suspected confound.",
  "claims": [
   {
    "id": "chimp-drum",
@@ -339,6 +339,22 @@
    "calibrated_source": "READING-RHYTHM.md",
    "verdict": "SURVIVES",
    "verdict_note": "Registered verdict OPTIMUM_SURVIVES_WINDOW: the measurement window does not explain the clustering of call rhythms near 3 Hz, so our hypothesis was not supported. The published model choice alone is weak evidence (OU wins by AIC in 36.5% of window-only worlds), but the real advantage is far beyond that. Only the window was tested: a short OU half-life also fits low phylogenetic signal from causes other than selection toward one optimum."
+  },
+  {
+   "id": "finch-repeat-links",
+   "claim": "Repeat numbers of adjacent and distant repeat phrases in Bengalese finch song are correlated across specific pairs of phrases (links between distant phrases, a long-range dependency beyond a Markov syntax)",
+   "paper": "Binwal and Veit 2026, bioRxiv doi:10.64898/2026.05.12.724669 (preprint)",
+   "repo": "https://github.com/munimtechnologies/finch-repeat-links-test",
+   "procedures": [
+    {"id": "finch-synthetic-control-slowstate", "procedure": "The preprint's synthetic control, rebuilt from the authors' public code: Spearman correlations with Benjamini-Hochberg, then a one-sided z test of each against 50 datasets with every repeat number redrawn from its syllable's pooled distribution, Benjamini-Hochberg again; fires if any link remains",
+     "world": "CD: a slow AR(1) state over songs (phi 0.99, loading 0.6 on every other repeat syllable) on each of 8 birds' real phrase sequences and song order, 6 worlds per bird; no link inside any song",
+     "worlds": 48, "hits": 42, "rate": 0.875,
+     "source_file": "results/repeat_links_results.json", "source_key": "calibration.CD.any_LP (of calibration.CD.worlds)"}
+   ],
+   "calibrated": "Time-local null (each phrase's repeat number drawn from the 10 songs nearest in time, matched by occurrence number): 92 of 110 published-style links survive (0.836), 43 of 55 at distance 2 or more; the 18 that fail are all weak (|rho| below 0.27). But this null itself reported a link in 13 of 48 slow-state worlds (0.271, limit 0.10), so calibration failed; power to a true within-song link 0.876. Brier 0.1668 over 7 registered forecasts.",
+   "calibrated_source": "READING-REPEAT-LINKS.md",
+   "verdict": "UNDECIDED",
+   "verdict_note": "Registered grade UNCALIBRATED_LINKS_SURVIVE_LOCAL_STATE, read as descriptive. The published evidence alone cannot separate links inside a song from slow state across songs (0.875 false-alarm rate); most links survive our time-local null, which leans toward real links, but that null is not calibrated. Whether links are specific to phrase pairs or a song-wide factor is untested."
   }
  ],
  "graded_without_false_alarm_rate": [
@@ -364,12 +380,12 @@
   }
  ],
  "summary": {
-  "claims": 19,
-  "procedures": 26,
-  "fired_at_least_0.30": 20,
+  "claims": 20,
+  "procedures": 27,
+  "fired_at_least_0.30": 21,
   "calibrated_at_most_0.10": 6,
   "negative_claims": 1,
-  "verdicts": {"SURVIVES": 10, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 4, "UNDECIDED": 4}
+  "verdicts": {"SURVIVES": 10, "SURVIVES_IN_PART": 1, "NOT_SUPPORTED": 4, "UNDECIDED": 5}
  },
  "prior_art": [
   "Mundry and Sommer 2007, Animal Behaviour, doi:10.1016/j.anbehav.2006.12.028 (discriminant analysis with nonindependent data; permuted DFA)",
@@ -383,7 +399,8 @@
   "Morita et al. 2021, PLoS Computational Biology 17:e1009707 (Bengalese finch song context of about eight syllables, measured with neural networks)",
   "Lin and Tegmark 2017, Entropy 19:299 (Markov processes give exponentially decaying mutual information; the recursive model used as the positive control)",
   "Boucher and Demery 2016, Systematic Biology 65:651 (bounded Brownian motion can be mistaken for Ornstein-Uhlenbeck selection; the window model used for the rhythm row)",
-  "Howard-Spink et al. 2024, PeerJ 12:e18484 (false alarms of the power-law MI-decay verdict from a single Markov chain fitted to chimpanzee actions; the first such check, which the birdsong calibration extends)"
+  "Howard-Spink et al. 2024, PeerJ 12:e18484 (false alarms of the power-law MI-decay verdict from a single Markov chain fitted to chimpanzee actions; the first such check, which the birdsong calibration extends)",
+  "Wittenbach et al. 2015, PLoS Computational Biology 11:e1004471, and Jin and Kozhevnikov 2011, PLoS Computational Biology 7:e1001108 (repeat-number models of Bengalese finch song; repeat counts stable across bouts within a day in intact birds)"
  ],
- "pending": ["marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)", "birdsong-mi-decay-test stages 2, 3 and 5 (house finch, chimpanzee actions, Cassin's vireo)", "birdsong-mi-decay-test stage 7 (European starling)", "birdsong-mi-decay-test stages 6B and 8B (how much speech the verdict needs; whether a pure power law marks hierarchy or long memory)", "finch-repeat-links-test (Binwal and Veit 2026, bioRxiv preprint)"]
+ "pending": ["marmoset-order-test amendment 1 (position-aware first-order model and nulls)", "chimpanzee raspberry convention test (Valet et al. 2026, PNAS)", "zebra finch semantic magnet test (Elie et al. 2025, Science)", "animal-sound-taste-test (James et al. 2026, Science)", "primate-recursion-calibration (Nitschke et al. 2026, bioRxiv preprint)", "birdsong-learning-power-test (James et al. 2026, Science 394:556)", "birdsong-mi-decay-test stages 2, 3 and 5 (house finch, chimpanzee actions, Cassin's vireo)", "birdsong-mi-decay-test stage 7 (European starling)", "birdsong-mi-decay-test stages 6B and 8B (how much speech the verdict needs; whether a pure power law marks hierarchy or long memory)"]
 }
