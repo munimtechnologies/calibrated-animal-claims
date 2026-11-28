@@ -37,10 +37,10 @@ class TestLedger(unittest.TestCase):
         self.procs = [p for r in self.rows for p in r["procedures"]]
 
     def test_version(self):
-        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-14")
+        self.assertEqual(self.d["version"], "calibrated-animal-claims-ledger-15")
         if os.path.exists(MD_PATH):
             with open(MD_PATH, encoding="utf-8") as f:
-                self.assertIn("(version 14)", f.read())
+                self.assertIn("(version 15)", f.read())
 
     def test_rows_complete(self):
         ids = [r["id"] for r in self.rows]
@@ -148,6 +148,28 @@ class TestLedger(unittest.TestCase):
                 md = f.read()
             self.assertIn("20 of 26 procedures", md)
             self.assertIn("results/stage8/stage8.json", md)
+
+    def test_stage6_row(self):
+        # Version 15: stage-6 human-speech positive control (READING-STAGE6.md,
+        # results/stage6/grade6.json headline SPLIT_OR_UNRESOLVED). A detection test, not a
+        # false-alarm procedure, so the procedure count stays 26.
+        row = [r for r in self.rows if r["id"] == "bengalese-mi-hierarchy"][0]
+        self.assertIn("READING-STAGE6.md", row["calibrated_source"])
+        for s in ("0 of 4 read-English analyses", "193,644 / 189,327 phones",
+                  "0 of 400", "SPLIT_OR_UNRESOLVED", "Brier 0.3653", "20.3%"):
+            self.assertIn(s, row["calibrated"])
+        self.assertIn("Howard-Spink", row["verdict_note"])
+        self.assertNotIn("and speech stages", row["verdict_note"])
+        self.assertEqual(len(self.procs), 26)
+        self.assertTrue(any("Howard-Spink" in p for p in self.d["prior_art"]))
+        pending = " ".join(self.d["pending"])
+        self.assertNotIn("speech)", pending)
+        self.assertIn("stages 6B and 8B", pending)
+        if os.path.exists(MD_PATH):
+            with open(MD_PATH, encoding="utf-8") as f:
+                md = f.read()
+            self.assertIn("READING-STAGE6.md", md)
+            self.assertIn("Howard-Spink", md)
 
     def test_parrot_row(self):
         # Version 11: parrot AMENDMENT-2 robustness checks graded (READING-ROBUST.md).
